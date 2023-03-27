@@ -1,0 +1,33 @@
+﻿@model FirstMVCProject.Models.UserModel
+@{
+}
+<style>
+    table, th, td {
+  border: 1px solid white;
+  border-collapse: collapse;
+}
+th, td {
+  background-color: #96D4D4;
+}
+</style>
+<table border="1">
+    <tr>
+        <th>
+            First Name
+        </th> &nbsp;
+        <th>Last Name</th>
+        <th>User Name</th>
+        <th>Email</th>
+        <th>IsActive</th>
+        <th>IsDelete</th>
+    </tr>
+    <tr>
+            <td>@Model.firstName</td>
+            <td>@Model.lastName</td>
+            <td>@Model.userName</td>
+            <td>@Model.email</td>
+            <td>@Model.isActive</td>
+            <td>@Model.isDelete</td>
+        
+    </tr>
+</table>
