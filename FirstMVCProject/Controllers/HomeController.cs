@@ -1,7 +1,6 @@
 ﻿using FirstMVCProject.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using System.Net.Http.Headers;
 
 namespace FirstMVCProject.Controllers
 {
