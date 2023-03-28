@@ -1,0 +1,289 @@
+﻿
+@{
+    ViewData["Title"] = "AddCustomers";
+}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<h1>NewUserOrAdminAdd</h1>
+<style>
+    #success_message {
+        display: none;
+    }
+
+    body {
+        background: linear-gradient(to right, #434343 0%, black 100%);
+    }
+</style>
+@*<script>
+    $(document).ready(function () {
+        $('#contact_form').bootstrapValidator({
+            // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                FirstName: {
+                    validators: {
+                        stringLength: {
+                            min: 2,
+                        },
+                        notEmpty: {
+                            message: 'Please enter your First Name'
+                        }
+                    }
+                },
+                LastName: {
+                    validators: {
+                        stringLength: {
+                            min: 2,
+                        },
+                        notEmpty: {
+                            message: 'Please enter your Last Name'
+                        }
+                    }
+                },
+                Address: {
+                    validators: {
+                        stringLength: {
+                            min: 8,
+                        },
+                        notEmpty: {
+                            message: 'Please enter your Address'
+                        }
+                    }
+                },
+                UserType: {
+                    validators: {
+                        stringLength: {
+                            min: 8,
+                        },
+                        notEmpty: {
+                            message: 'Please enter your User Type'
+                        }
+                    }
+                },
+                Passwords: {
+                    validators: {
+                        stringLength: {
+                            min: 8,
+                        },
+                        notEmpty: {
+                            message: 'Please enter your Password'
+                        }
+                    }
+                },
+                confirm_password: {
+                    validators: {
+                        stringLength: {
+                            min: 8,
+                        },
+                        notEmpty: {
+                            message: 'Please confirm your Password'
+                        }
+                    }
+                },
+                Email: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please enter your Email Address'
+                        },
+                        emailAddress: {
+                            message: 'Please enter a valid Email Address'
+                        }
+                    }
+                },
+                PhoneNumber: {
+                    validators: {
+                        stringLength: {
+                            min: 10,
+                            max: 10,
+                            notEmpty: {
+                                message: 'Please enter your Contact No.'
+                            }
+                        }
+                    },
+                    department: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Please select your Department/Office'
+                            }
+                        }
+                    },
+                }
+            }
+        })
+            .on('success.form.bv', function (e) {
+                $('#success_message').slideDown({ opacity: "show" }, "slow") // Do something ...
+                $('#contact_form').data('bootstrapValidator').resetForm();
+
+                // Prevent form submission
+                e.preventDefault();
+
+                // Get the form instance
+                var $form = $(e.target);
+
+                // Get the BootstrapValidator instance
+                var bv = $form.data('bootstrapValidator');
+
+                // Use Ajax to submit form data
+                $.post($form.attr('action'), $form.serialize(), function (result) {
+                    console.log(result);
+                }, 'json');
+            });
+    });
+</script>*@
+<div class="container" style="background-color:lightseagreen">
+
+    <form class="well form-horizontal" asp-controller="Home" asp-action="AddCustomers" method="post" id="contact_form"
+          style="background-image: linear-gradient(to right, #ffecd2 0%, #fcb69f 100%);">
+        <fieldset>
+
+            <!-- Form Name -->
+            <legend><center><h2><b>Registration Form For User Or Admin</b></h2></center></legend>
+            <br>
+
+            <!-- Text input-->
+
+            <div class="form-group">
+                <label class="col-md-4 control-label">Customer Name</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input name="CustomerName" placeholder="Customer Name" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text input-->
+
+            <div class="form-group">
+                <label class="col-md-4 control-label">Gender</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input name="Gender" placeholder="Last Name" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text input-->
+
+            <div class="form-group">
+                <label class="col-md-4 control-label">Customer Address</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input name="Address" placeholder="Address" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text input-->
+
+            <div class="form-group">
+                <label class="col-md-4 control-label">Phone Number.</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+                        <input name="CustomerMobileNumber" placeholder="(+91)" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label">E-Mail</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                        <input name="CustomerEmail" placeholder="E-Mail Address" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+
+            @*<div class="form-group">
+            <label class="col-md-4 control-label">Department / Office</label>
+            <div class="col-md-4 selectContainer">
+            <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+            <select name="department" class="form-control selectpicker">
+            <option value="">Select your Department/Office</option>
+            <option>Department of Engineering</option>
+            <option>Department of Agriculture</option>
+            <option>Accounting Office</option>
+            <option>Tresurer's Office</option>
+            <option>MPDC</option>
+            <option>MCTC</option>
+            <option>MCR</option>
+            <option>Mayor's Office</option>
+            <option>Tourism Office</option>
+            </select>
+            </div>
+            </div>
+            </div>*@
+
+        @*    <!-- Text input-->
+
+            <div class="form-group">
+                <label class="col-md-4 control-label">UserType</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input name="UserType" placeholder="UserType" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+*@
+            <!-- Text input-->
+
+            @*<div class="form-group">
+                <label class="col-md-4 control-label">Password</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input name="Passwords" placeholder="Password" class="form-control" type="password">
+                    </div>
+                </div>
+            </div>*@
+
+          @*  <!-- Text input-->
+
+            <div class="form-group">
+                <label class="col-md-4 control-label">Confirm Password</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input name="confirm_password" placeholder="Confirm Password" class="form-control" type="password">
+                    </div>
+                </div>
+            </div>
+*@
+
+
+            <!-- Select Basic -->
+            <!-- Success message -->
+            <div class="alert alert-success" role="alert" id="success_message">Success <i class="glyphicon glyphicon-thumbs-up"></i> Success!.</div>
+
+            <!-- Button -->
+            <div class="form-group">
+                <label class="col-md-4 control-label"></label>
+                <div class="col-md-4">
+                    <br>
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button type="submit" class="btn btn-warning">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSUBMIT <span class="glyphicon glyphicon-send"></span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+</div>
+    </div><!-- /.container -->
