@@ -1,4 +1,6 @@
-﻿namespace Mobile_Shop_Management_MVC_Project.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Mobile_Shop_Management_MVC_Project.Models
 {
     public class MobileModels
     {
@@ -13,6 +15,38 @@
         public DateTime? RegisterDate { get; set; }
         public int IsActive { get; set; }
         public int IsDeleted { get; set; }
+    }
+    public class GetUsersModels
+    {
+        [Required(ErrorMessage = "Inter your User Id")]
+        public int? UserId { get; set; }
+
+        [Required(ErrorMessage = "Inter your First Name")]
+        public string? FirstName { get; set; }
+
+        [Required(ErrorMessage = "Inter your Last Name")]
+        public string? LastName { get; set; }
+
+        [Required(ErrorMessage = "Inter your Address")]
+        public string? Address { get; set; }
+
+        [Required(ErrorMessage = "Inter your Phone Number")]
+        public string? PhoneNumber { get; set; }
+
+        [Required]
+        [EmailAddress(ErrorMessage = "Inter Valid Email")]
+        public string? Email { get; set; }
+
+        [Required(ErrorMessage = "Inter Use Type")]
+        public string? UserType { get; set; }
+
+        [Required(ErrorMessage = "Inter your Password")]
+        public string? Passwords { get; set; }
+
+        //public DateTime? RegisterDate { get; set; }
+        [Required(ErrorMessage = "Inter your Active status")]
+        public int? IsActive { get; set; }
+        //public int IsDeleted { get; set; }
     }
 
     public class AddNewUserOrAdminModel
@@ -54,13 +88,11 @@
 
     public class AddCustomerModel
     {
-
         public string? CustomerName { get; set; }
         public string? CustomerEmail { get; set; }
         public string? CustomerMobileNumber { get; set; }
         public string? Gender { get; set; }
         public string? Address { get; set; }
-
 
     }
 

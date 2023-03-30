@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FirstMVCProject", "FirstMVCProject\FirstMVCProject.csproj", "{24118DE4-DD73-4AFA-92FD-F42A27964EFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobile Shop Management MVC Project", "Mobile Shop Management MVC Project\Mobile Shop Management MVC Project.csproj", "{21D101A4-10E8-4865-B305-B6CA743B537A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mobile Shop Management MVC Project", "Mobile Shop Management MVC Project\Mobile Shop Management MVC Project.csproj", "{21D101A4-10E8-4865-B305-B6CA743B537A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

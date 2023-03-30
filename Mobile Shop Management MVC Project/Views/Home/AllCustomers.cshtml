@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewData["Title"] = "AllCustomers";
+}
+
+<h1>AllCustomers</h1>
+
+<h2> Show All Customer of User or Admin</h2>
+<br></br>
+
+<style>
+    tr, td{
+        background: #005AA7; /* fallback for old browsers */
+        background: -webkit-linear-gradient(to bottom, #FFFDE4, #005AA7); /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to bottom, #FFFDE4, #005AA7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
+
+    table, th, td {
+        border: 1px solid white;
+        border-collapse: collapse;
+    }
+
+    table {
+        background-color: #96D4D4;
+    }
+
+    h2 {
+        text-align: center;
+        color: blue;
+    }
+</style>
+
+@if (Model == null)
+{
+    <h1>No data found</h1>
+}
+else
+{
+    <table class="table" border="1">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">UserId</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Address</th>
+                <th scope="col">PhoneNumber</th>
+                <th scope="col">Email</th>
+                <th scope="col"> UserType</th>
+                <th scope="col">Passwords</th>
+                <th scope="col">RegisterDate</th>
+                <th scope="col">IsActive</th>
+                <th scope="col">IsDelete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (MobileModels mobileModels in Model)
+            {
+                <tr>
+                    <td>@mobileModels.UserId</td>
+                    <td>@mobileModels.FirstName</td>
+                    <td>@mobileModels.LastName</td>
+                    <td>@mobileModels.Address</td>
+                    <td>@mobileModels.PhoneNumber</td>
+                    <td>@mobileModels.Email</td>
+                    <td>@mobileModels.UserType</td>
+                    <td>@mobileModels.Passwords</td>
+                    <td>@mobileModels.RegisterDate</td>
+                    <td>@mobileModels.IsActive</td>
+                    <td>@mobileModels.IsDeleted</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+    <br />
+}
+<h2 style="text-align:center;"> <a href="AddCustomers">Back to New Customer Registration </a></h2>
+

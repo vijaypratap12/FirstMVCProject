@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Mobile_Shop_Management_MVC_Project.Models;
 using System.Diagnostics;
+using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Http.Json;
 
 namespace Mobile_Shop_Management_MVC_Project.Controllers
 {
@@ -47,13 +49,19 @@ namespace Mobile_Shop_Management_MVC_Project.Controllers
             return View(users);
             //return View("User",UserId);
         }
-        public IActionResult Products()
+
+
+        public IActionResult Products() { 
+        return View();  
+        }
+        [HttpPost]
+        public IActionResult ProductsAsync([FromForm] int ProductId)
         {
             HttpClient httpClient = new HttpClient();
             GetProductDetailModel users = new GetProductDetailModel();
             httpClient.BaseAddress = new Uri("https://localhost:7001");
-            int UserId = 1;
-            var response = httpClient.GetAsync($"/api/MobileShop/GetProductDetailbyId?ProductId={UserId}");
+            //int UserId = 1;
+            var response = httpClient.GetAsync($"/api/MobileShop/GetProductDetailbyId?ProductId={ProductId}");
             response.Wait();
             var result = response.Result;
             if (result.IsSuccessStatusCode)
@@ -65,15 +73,20 @@ namespace Mobile_Shop_Management_MVC_Project.Controllers
             return View(users);
             //return View();
         }
-
-
+        
+        
         public IActionResult Customers()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Customers([FromForm] int CustomerId)
         {
             HttpClient httpClient = new HttpClient();
             GetCustomerModel users = new GetCustomerModel();
             httpClient.BaseAddress = new Uri("https://localhost:7001");
-            int UserId = 1;
-            var response = httpClient.GetAsync($"/api/MobileShop/GetCustomerDetailbyId?CustomerId={UserId}");
+            //int UserId = 1;
+            var response = httpClient.GetAsync($"/api/MobileShop/GetCustomerDetailbyId?CustomerId={CustomerId}");
             response.Wait();
             var result = response.Result;
             if (result.IsSuccessStatusCode)
@@ -123,7 +136,7 @@ namespace Mobile_Shop_Management_MVC_Project.Controllers
 
 
 
-                HttpResponseMessage response = await client.PostAsJsonAsync("api/MobileShop/AddUserOrAdmin", employee);
+                HttpResponseMessage response = await client.PostAsJsonAsync($"/api/MobileShop/AddUserOrAdmin", employee);
 
 
 
@@ -134,7 +147,56 @@ namespace Mobile_Shop_Management_MVC_Project.Controllers
             
         }
 
-        public IActionResult AddCustomers()
+        //public IActionResult ShowAllCustomers()
+        //{
+        //    return View();
+        //}
+
+
+        [HttpGet]
+            public IActionResult ShowAllCustomers()
+        {
+            HttpClient httpClient = new HttpClient();
+            IEnumerable<GetCustomerModel> users = new List<GetCustomerModel>();
+            httpClient.BaseAddress = new Uri("https://localhost:7001");
+            //int UserId = 1;
+            var response = httpClient.GetAsync($"/api/MobileShop/GetAllCustomers");
+            response.Wait();
+            var result = response.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                var display = result.Content.ReadAsAsync<IEnumerable<GetCustomerModel>>();
+                display.Wait();
+                users = display.Result;
+            }
+            return View(users);
+        }
+
+        public IActionResult UpdateUserOrAdmin()
+        { 
+        return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> UpdateUserOrAdminAsync([FromForm] GetUsersModels mobileModels)
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("https://localhost:7001");
+
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Accept.Clear();
+
+
+
+            HttpResponseMessage response = await client.PutAsJsonAsync("api/MobileShop/UpdateUserOrAdmin", mobileModels);
+
+
+
+            if (response.IsSuccessStatusCode == true)
+                return View(response);
+            else
+                return View();
+        }
+        public IActionResult AddCustomers(int UserId)
         {
             return View();
         }
@@ -147,32 +209,32 @@ namespace Mobile_Shop_Management_MVC_Project.Controllers
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Accept.Clear();
 
-
-
-            HttpResponseMessage response = await client.PostAsJsonAsync("api/MobileShop/AddNewCustomer", employee);
-
-
+            HttpResponseMessage response = await client.PostAsJsonAsync($"/api/MobileShop/AddNewCustomer", employee);
 
             if (response.IsSuccessStatusCode == true)
-                return View(response);
+                return View();
             else
                 return View();
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> User([FromForm] int UserId)
+        public IActionResult DeleteUserById()
+        {
+            return View();
+        }
+        //public IActionResult ShowAllCustomers() {
+
+        //    return View();
+        //}
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteUserById([FromForm] int UserId)
         {
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri("https://localhost:7001");
 
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Accept.Clear();
-
-
-
-            HttpResponseMessage response = await client.PostAsJsonAsync("api/MobileShop/DeleteUserById", UserId);
-
-
+            HttpResponseMessage response = await client.DeleteAsync($"api/MobileShop/DeleteUserById?UserId={UserId}");
 
             if (response.IsSuccessStatusCode == true)
                 return View(response);
@@ -181,6 +243,18 @@ namespace Mobile_Shop_Management_MVC_Project.Controllers
 
 
         }
+
+        
+
+        public IActionResult UpdateUserById()
+        {
+            return View();
+        }
+
+        //public IActionResult UpdateUserById()
+        //{
+        //    return View();
+        //}
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
