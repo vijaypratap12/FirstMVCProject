@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "AddTeacher";
+}
+<form method="post" asp-controller="Home" asp-action="Addteacher">
+    <fieldset>
+        <legend>Add Teacher</legend>
+        <div>
+            <label for="teachername">Teacher Name:</label>
+            <input type="text" name="TeacherName" value="" />
+            @Html.ValidationMessage("teachername")
+        </div>
+        <div>
+            <label for="age">Age:</label>
+            <input type="text" name="Age" value="" />
+            @Html.ValidationMessage("age")
+        </div>
+        <div>
+            <label for="department">Department:</label>
+            <input type="text" name="Department" value="" />
+            @Html.ValidationMessage("contact")
+        </div>
+        <div>
+            <label>&nbsp;</label>
+            <input type="submit" value="Submit" class="submit" />
+        </div>
+    </fieldset>
+</form>  
