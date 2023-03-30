@@ -1,0 +1,50 @@
+﻿@model RESTAURANT_MANAGEMENT.Models.DeleteStaff
+@{
+
+    <style>
+        body {
+            background-color: #8ebf42;
+        }
+        form {
+            width: 400px;
+        }
+        input {
+            padding: 4px 10px;
+            border: 0;
+            font-size: 16px;
+        }
+        search {
+            width: 75%;
+        }
+        submit {
+            width: 70px;
+            background-color: #1c87c9;
+            color: #ffffff;
+        }
+    </style>
+
+    <body>
+        <h2> Delete Staff</h2>
+        <div class="col md-9">
+            <form asp-controller="Home" asp-action="DeleteCustomer" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="StaffId" class="control-label"></label>
+                    <input asp-for="StaffId" class="form-control" />
+                    <span asp-validation-for="StaffId" class="text-danger"></span>
+                </div>
+                <br>
+                <div class="form-group">
+                    <input type="submit" value="submit" class=" text-black">
+                </div>
+                <div>
+                    <a asp-action="AllStaffList">Back to List</a>
+
+                </div>
+            </form>
+        </div>
+    </body>
+
+}
+

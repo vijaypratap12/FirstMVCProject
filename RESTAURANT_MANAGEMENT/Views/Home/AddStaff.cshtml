@@ -1,0 +1,56 @@
+﻿@model RESTAURANT_MANAGEMENT.Models.AddStaff
+
+
+@{
+    <style>
+        div {
+            width: fit-content;
+            background-color: lightgray;
+        }
+    </style>
+
+
+    <div class="row">
+        <div class="col md-9">
+            <form asp-controller="Home" asp-action="AddStaff" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="StaffName" class="control-label">Name</label>
+                    <input asp-for="StaffName" class="form-control" />
+                    <span asp-validation-for="StaffName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="StaffContact" class="control-label">Contact</label>
+                    <input asp-for="StaffContact" class="form-control" />
+                    <span asp-validation-for="StaffContact" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="StaffCategory" class="control-label">Category</label>
+                    <input asp-for="StaffCategory" class="form-control" />
+                    <span asp-validation-for="StaffCategory" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="StaffAddress" class="control-label">Address</label>
+                    <input asp-for="StaffAddress" class="form-control" />
+                    <span asp-validation-for="StaffAddress" class="text-danger"></span>
+                </div>
+
+                <br>
+                <div class="form-group">
+                    <input type="submit" value="submit" class="btn btn-primary" />
+                </div>
+
+                <a asp-action="AllStaffList">Back to list</a>
+
+            </form>
+        </div>
+    </div>
+
+    }
+
+   
+    

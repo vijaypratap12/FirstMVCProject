@@ -1,0 +1,46 @@
+﻿
+@{
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        th, td {
+            background-color: aquamarine;
+        }
+    </style>
+    
+    <h2 style="color:teal; text-align:center"> STAFF </h2>
+    <table border="1" width="100%">
+
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Contact</th>
+            <th>Category</th>
+            <th>Address</th>
+
+        </tr>
+        @foreach (AllStaffList item in Model)
+        {
+            <tr>
+                <td>@item.StaffId</td>
+                <td>@item.StaffName</td>
+                <td>@item.StaffContact</td>
+                <td>@item.StaffCategory</td>
+                <td>@item.StaffAddress</td>
+
+            </tr>
+        }
+
+    </table>
+    <br>
+    <div>
+        <a style="font-family:'Times New Roman', Times, serif; font-size:larger: text-align:right" asp-action="AddStaff">New Staff</a>
+        <a style="font-family:'Times New Roman', Times, serif; font-size:larger; text-align:left" asp-action="DeleteStaff">Delete Staff</a>
+    </div>
+    
+}
+

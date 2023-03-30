@@ -1,0 +1,35 @@
+﻿
+@{
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        th, td {
+            background-color: lightgoldenrodyellow;
+           
+        }
+    </style>
+    <h3 style="text-align: center">MENU</h3>
+    <table border="3" width="100%">
+
+        <tr>
+            <th>FoodId</th>
+            <th>FoodName</th>           
+            <th>FoodPrice</th>
+           
+        </tr>
+        @foreach (FoodList item in Model)
+        {
+            <tr>
+                <td>@item.FoodId</td>
+                <td>@item.FoodName</td>
+                <td>@item.FoodPrice</td>               
+                
+            </tr>
+        }
+
+    </table>
+}

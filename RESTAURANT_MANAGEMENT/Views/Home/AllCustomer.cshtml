@@ -1,0 +1,50 @@
+﻿  
+
+@{    
+    <h2 style="text-align:center; color:maroon">Customers</h2>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        th, td {
+            background-color: lightgoldenrodyellow;
+        }
+    </style>
+    
+    
+    <table border="1" width="100%">
+       
+        <tr>
+            <th >Id</th>
+            <th >Name</th>
+            <th >Contact</th>
+            <th >Address</th>
+            
+        </tr>
+      @foreach (AllCustomerDetails item in Model)
+       {
+        <tr>
+            <td>@item.CustomerId</td>
+            <td>@item.CustomerName</td>
+            <td>@item.CustomerContact</td>
+            <td>@item.CustomerAddress</td>
+            
+        </tr>
+        }       
+      
+    </table>
+
+    <div>
+        <a style="font-family:'Times New Roman', Times, serif; font-size:larger; text-align:left " asp-action="AddCustomer">New registration</a>
+       
+        <a style="font-family:'Times New Roman', Times, serif; font-size:larger; text-align:right " asp-action="DeleteCustomer">Deleting Customer</a>
+    </div>
+
+    
+
+}
+
+

@@ -1,0 +1,49 @@
+﻿@model RESTAURANT_MANAGEMENT.Models.DeleteCustomer
+@{
+
+  <style>
+      body {
+        background-color: #8ebf42;
+      }
+      form {
+        width: 400px;        
+      }
+      input {
+        padding: 4px 10px;
+        border: 0;
+        font-size: 16px;
+      }
+      search {
+        width: 75%;
+      }
+      submit {
+        width: 70px;
+        background-color: #1c87c9;
+        color: #ffffff;
+      }
+  </style>
+  
+  <body>
+    <h2> Delete Customer</h2>
+          <div class="col md-9">
+            <form asp-controller="Home" asp-action="DeleteCustomer" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                    <label asp-for="CustomerId" class="control-label"></label>
+                    <input asp-for="CustomerId" class="form-control" />
+                    <span asp-validation-for="CustomerId" class="text-danger"></span>
+                    </div>
+                    <br>
+                <div class="form-group">
+                    <input type="submit" value="submit" class=" text-black">
+                </div>
+                    <div>
+                       <a asp-action="AllCustomer">Back to List</a>
+                    </div>
+            </form>          
+        </div>
+</body>
+
+}
+
