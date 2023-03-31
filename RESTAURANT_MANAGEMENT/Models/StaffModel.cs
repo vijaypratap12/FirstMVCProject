@@ -33,7 +33,7 @@
     }
     public class AddStaff
     {
-        public int StaffId { get; private set; }
+        public int StaffId { get; set; }
         public string? StaffName { get; set; }
         public string? StaffContact { get; set; }
         public string? StaffCategory { get; set; }
@@ -49,6 +49,22 @@
         public int FoodId { get; set; }
         public string? FoodName { get; set; }
         public string? FoodPrice { get; set; }
-    
     }
+    public class AddFeedback
+    {
+        public int FeedbaackId { get; set; }
+        public int CustomerId { get; set; }
+        public string? FoodName { get; set; }
+        public string? Messages { get; set; }
+    }
+    public class FeedbackList 
+    { 
+        public int FeedbaackId { get; set; } 
+        public int CustomerId { get; set; }
+        public string? FoodName { get; set;}
+        public string? Messages { get;set; }
+
+    }
+    
+
 }

@@ -118,9 +118,7 @@ namespace RESTAURANT_MANAGEMENT.Controllers
             HttpClient Client = new HttpClient();
             Client.BaseAddress = new Uri("https://localhost:7177/");
 
-            //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            //client.DefaultRequestHeaders.Accept.Clear();
-
+           
             HttpResponseMessage response = await Client.PostAsJsonAsync($"/api/Restaurant/AddStaff", addStaff);
             if (response.IsSuccessStatusCode == true)
             {
@@ -169,6 +167,49 @@ namespace RESTAURANT_MANAGEMENT.Controllers
             }
             return View(foodlist);
         }
+
+
+        [HttpGet]
+        public IActionResult AddFeedback()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddFeedback([FromForm] AddFeedback feedback)
+        {
+            HttpClient Client = new HttpClient();
+            Client.BaseAddress = new Uri("https://localhost:7177/");
+
+            HttpResponseMessage response = await Client.PostAsJsonAsync($"/api/Restaurant/AddingFeedback", feedback);
+            if (response.IsSuccessStatusCode == true)
+            {
+                return View();
+
+            }
+            return View();
+        }
+
+
+        [HttpGet]
+        public IActionResult FeedbackList()
+        {
+            HttpClient httpClient = new HttpClient();
+            IEnumerable<FeedbackList> feedbacklist = new List<FeedbackList>();
+            httpClient.BaseAddress = new Uri("https://localhost:7177/");
+            var response = httpClient.GetAsync($"/api/Restaurant/GetFeedbackList");
+            response.Wait();
+            var result = response.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                var display = result.Content.ReadAsAsync<IEnumerable<FeedbackList>>();
+                display.Wait();
+                feedbacklist = display.Result;
+            }
+            return View(feedbacklist);
+        }
+
+       
 
         public IActionResult Privacy()
         {

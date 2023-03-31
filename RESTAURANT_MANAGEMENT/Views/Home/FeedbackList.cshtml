@@ -1,0 +1,40 @@
+﻿
+@{
+  
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        th, td {
+            background-color: aquamarine;
+        }
+    </style>
+    
+    <h2 style="color:teal; text-align:center"> Feedback </h2>
+    <table border="1" width="100%">
+
+        <tr>
+            <th>Id</th>
+            <th>CustomerId</th>
+            <th>Name</th>
+            <th>Messages</th>
+           
+
+        </tr>
+        @foreach (FeedbackList item in Model)
+        {
+            <tr>
+                <td>@item.FeedbaackId</td>
+                <td>@item.CustomerId</td>
+                <td>@item.FoodName</td>
+                <td>@item.Messages</td>
+                
+
+            </tr>
+        }
+
+    </table>
+}

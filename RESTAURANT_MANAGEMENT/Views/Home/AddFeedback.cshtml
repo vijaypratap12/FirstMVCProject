@@ -1,0 +1,46 @@
+﻿@model RESTAURANT_MANAGEMENT.Models.AddFeedback
+
+@{
+    <style>
+        div {
+            width: fit-content;
+            background-color: lightgreen;
+        }
+    </style>
+    <h4 style="text-align:center">Feedback</h4>
+
+    <div class="row">
+        <div class="col md-9">
+            <form asp-controller="Home" asp-action="AddFeedback" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="CustomerId" class="control-label"></label>
+                    <input asp-for="CustomerId" class="form-control" />
+                    <span asp-validation-for="CustomerId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="FoodName" class="control-label"></label>
+                    <input asp-for="FoodName" class="form-control" />
+                    <span asp-validation-for="FoodName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Messages" class="control-label"></label>
+                    <input asp-for="Messages" class="form-control" />
+                    <span asp-validation-for="Messages" class="text-danger"></span>
+                </div>
+
+                <br>
+                <div class="form-group">
+                    <input type="submit" value="submit" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <div>
+        <a asp-action="FeedbackList">ALL LIST</a>
+    </div>
+
+}
