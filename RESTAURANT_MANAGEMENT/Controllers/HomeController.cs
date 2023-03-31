@@ -59,7 +59,7 @@ namespace RESTAURANT_MANAGEMENT.Controllers
             HttpResponseMessage response = await Client.PostAsJsonAsync($"/api/Restaurant/AddCustomer", customer);
             if (response.IsSuccessStatusCode == true)
             {
-                return View();
+                return RedirectToAction("AllCustomer");
             }
              return View();
         }       
@@ -79,7 +79,7 @@ namespace RESTAURANT_MANAGEMENT.Controllers
             HttpResponseMessage response = await Client.DeleteAsync($"api/Restaurant/DeleteCustomer?CustomerId={CustomerId}");
             if (response.IsSuccessStatusCode == true)
             {
-                  return View();
+                  return RedirectToAction("AllCustomer");
                 //return RedirectToAction("DeleteCustomer");
             }
             return View();
@@ -124,7 +124,7 @@ namespace RESTAURANT_MANAGEMENT.Controllers
             HttpResponseMessage response = await Client.PostAsJsonAsync($"/api/Restaurant/AddStaff", addStaff);
             if (response.IsSuccessStatusCode == true)
             {
-                return View();
+                return RedirectToAction("AllStaffList");
             }
             return View();
         }
@@ -145,7 +145,7 @@ namespace RESTAURANT_MANAGEMENT.Controllers
             HttpResponseMessage response = await Client.DeleteAsync($"/api/Restaurant/DeleteStaff?StaffId={StaffId}");
             if (response.IsSuccessStatusCode == true)
             {
-                return View();
+                return RedirectToAction("AllStaffList");
                 //return RedirectToAction("DeleteCustomer");
             }
             return View();
