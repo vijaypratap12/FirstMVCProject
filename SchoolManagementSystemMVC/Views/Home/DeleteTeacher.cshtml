@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "DeleteTeacher";
+}
+<form method="post" asp-controller="Home" asp-action="DeleteTeacher">
+    <fieldset>
+        <legend>Remove Teacher</legend>
+        <div>
+            <label for="TeacherId">Teacher Id:</label>
+            <input type="text" name="TeacherId" value="" />
+            @Html.ValidationMessage("TeacherId")
+        </div>
+
+        <label>&nbsp;</label>
+        <input type="submit" value="Submit" class="submit" />
+        </div>
+    </fieldset>
+</form>  
