@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewData["Title"] = "Products";
+}
+
+
+
+<h2> Show All Details of Product with Thier ID</h2>
+<br></br>
+
+<style>
+    tr, td {
+        background: #C6FFDD; /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #f7797d, #FBD786, #C6FFDD); /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #f7797d, #FBD786, #C6FFDD); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
+
+    table, th, td {
+        border: 1px solid white;
+        border-collapse: collapse;
+    }
+
+    table {
+        background-color: #96D4D4;
+    }
+
+    h2 {
+        text-align: center;
+        color:blue;
+    }
+</style>
+
+<form asp-controller="Home" asp-action="Products" method="post">
+    <label for="site-search">Get User or Admin Detail By ID:</label>
+    <input type="search" id="site-search" name="ProductId">
+
+    <button type="submit">Search</button>
+</form>
+<br />
+<br />
+
+
+@if(Model == null)
+{
+    <h1>No data found</h1>
+}
+else
+{
+<table class="table" border="1">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">ProductId</th>
+            <th scope="col">ProductName</th>
+            <th scope="col">ProductAddDate</th>
+            <th scope="col">ProductCategory</th>
+            <th scope="col">ProductCompanyName</th>
+            <th scope="col">ColorName</th>
+            <th scope="col">ProductSize</th>
+            <th scope="col">ProductPrice</th>
+            <th scope="col">ProductQuantity</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.ProductId</td>
+            <td>@Model.ProductName</td>
+            <td>@Model.ProductAddDate</td>
+            <td>@Model.ProductCategory</td>
+            <td>@Model.ProductCompanyName</td>
+            <td>@Model.ColorName</td>
+            <td>@Model.ProductSize</td>
+            <td>@Model.ProductPrice</td>
+            <td>@Model.ProductQuantity</td>
+           
+        </tr>
+
+    </tbody>
+</table>
+<br />
+}
