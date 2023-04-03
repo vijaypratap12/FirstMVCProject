@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewData["Title"] = "GetStudent";
+}
+<style>
+    table, th, td {
+        border: 1px solid purple;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        background-color: pink;
+    }
+ 
+</style>
+<div>
+    <a href="AddStudent">Add Student</a>
+</div>
+<div>
+    <a href="DeleteStudent">Remove Student</a>
+</div>
+<table border="1">
+    <tr>
+        <th>
+            StudentId
+        </th> &nbsp;
+        <th>
+            StudentName
+        </th> &nbsp;
+        <th>Age</th>
+        <th>Contact</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.StudentId</td>
+            <td>@item.StudentName</td>
+            <td>@item.Age</td>
+            <td>@item.Contact</td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "GetCourse";
+}
+<style>
+    table, th, td {
+        border: 1px solid purple;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        background-color: pink;
+    }
+</style>
+
+<div>
+    <a href="AddCourse">Add Course</a>
+</div>
+<table border="1">
+    <tr>
+        <th>
+            CourseId
+        </th> &nbsp;
+        <th>
+            CourseName
+        </th> &nbsp;
+        <th>Affiliated by</th>
+        
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.courseid</td>
+            <td>@item.CourseName</td>
+            <td>@item.AffiliatedBY</td>
+        </tr>
+    }
+
+</table>

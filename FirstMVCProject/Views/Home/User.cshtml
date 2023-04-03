@@ -1,4 +1,4 @@
-﻿@model FirstMVCProject.Models.UserModel
+﻿@model List<FirstMVCProject.Models.UserModel>
 @{
 }
 <style>
@@ -10,6 +10,10 @@ th, td {
   background-color: #96D4D4;
 }
 </style>
+
+<div>
+    <a href="AddEmployee">Add Employee</a>
+</div>
 <table border="1">
     <tr>
         <th>
@@ -19,15 +23,20 @@ th, td {
         <th>User Name</th>
         <th>Email</th>
         <th>IsActive</th>
+
         <th>IsDelete</th>
     </tr>
-    <tr>
-            <td>@Model.firstName</td>
-            <td>@Model.lastName</td>
-            <td>@Model.userName</td>
-            <td>@Model.email</td>
-            <td>@Model.isActive</td>
-            <td>@Model.isDelete</td>
-        
-    </tr>
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td>@item.firstName</td>
+            <td>@item.lastName</td>
+            <td>@item.userName</td>
+            <td>@item.email</td>
+            <td>@item.isActive</td>
+            <td>@item.isDelete</td>
+
+        </tr>
+    }
+    
 </table>
