@@ -21,6 +21,10 @@ namespace Mobile_Shop_Management_MVC_Project.Controllers
         {
             return View();
         }
+        public IActionResult SuccessPage()
+        {
+            return View();
+        }
 
         public IActionResult Privacy()
         {
@@ -141,7 +145,7 @@ namespace Mobile_Shop_Management_MVC_Project.Controllers
 
 
             if (response.IsSuccessStatusCode == true) 
-                    return View(response);
+                    return RedirectToAction("SuccessPage");
             else
                     return View();
             
@@ -192,7 +196,7 @@ namespace Mobile_Shop_Management_MVC_Project.Controllers
 
 
             if (response.IsSuccessStatusCode == true)
-                return View(response);
+                return RedirectToAction("SuccessPage");
             else
                 return View();
         }
@@ -212,9 +216,37 @@ namespace Mobile_Shop_Management_MVC_Project.Controllers
             HttpResponseMessage response = await client.PostAsJsonAsync($"/api/MobileShop/AddNewCustomer", employee);
 
             if (response.IsSuccessStatusCode == true)
-                return View();
+                return RedirectToAction("SuccessPage");
             else
                 return View();
+        }
+
+        public IActionResult DeleteCustomerById()
+        {
+            return View(); 
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteCustomerById([FromForm] int CustomerId)
+        {
+            
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("https://localhost:7001");
+
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Accept.Clear();
+            HttpResponseMessage response = await client.DeleteAsync($"api/MobileShop/DeleteCustomerById?CustomerId={CustomerId}");
+
+            if (response.IsSuccessStatusCode==true)
+            {
+                return RedirectToAction("SuccessPage");
+            }
+            else
+            {
+                return View();
+            }
+
+
         }
 
         public IActionResult DeleteUserById()
@@ -237,14 +269,12 @@ namespace Mobile_Shop_Management_MVC_Project.Controllers
             HttpResponseMessage response = await client.DeleteAsync($"api/MobileShop/DeleteUserById?UserId={UserId}");
 
             if (response.IsSuccessStatusCode == true)
-                return View(response);
+                return RedirectToAction("SuccessPage");
             else
                 return View();
 
 
         }
-
-        
 
         public IActionResult UpdateUserById()
         {
