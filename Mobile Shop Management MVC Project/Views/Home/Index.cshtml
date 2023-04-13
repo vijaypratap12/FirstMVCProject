@@ -130,7 +130,7 @@
             padding: 20px;
             color: #fff;
         }
-        a{
+       .box .content a{
             text-decoration:none;
             color:whitesmoke;
         }
@@ -213,6 +213,7 @@
                 <h2>Add Customers</h2>
                 <p>Click to Add new Customer</p>
                     </a>
+                    
             </div>
         </div>
        
@@ -235,6 +236,7 @@
                 <h2>Delete Customer By ID</h2>
                 <p>Click to Delete Customer by id</p>
                     </a>
+                   
             </div>
         </div>
             
@@ -246,6 +248,7 @@
                     <h2>Add New User OR Admin</h2>
                     <p>add new user or admin</p>
                         </a>
+                    
                 </div>
             </div>
             
@@ -257,6 +260,7 @@
                     <h2>Show All User OR Admin</h2>
                     <p>Show all users or Admin</p>
                     </a>
+                    
                 </div>
             </div>
                
@@ -268,6 +272,7 @@
                 <h2>Update User OR Admin</h2>
                 <p>Update user or admin</p>
                     </a>
+                   
             </div>
             </div>
             <div class="box">
@@ -277,6 +282,7 @@
                         <h2>Search User Or Admin By Id</h2>
                         <p> click Search users or admin by id</p>
                     </a>
+                  
                 </div>
             </div>
             <div class="box">
@@ -286,6 +292,7 @@
                         <h2>Search Product By Id</h2>
                         <p>click to Search Products by id</p>
                     </a>
+                    
                 </div>
             </div>
             <div class="box">
@@ -295,6 +302,7 @@
                         <h2>Search Customers By Id</h2>
                         <p>click to Search Customers by id</p>
                     </a>
+                    
                 </div>
             </div>
             <div class="box">
@@ -304,6 +312,7 @@
                         <h2>Delete Users By Id</h2>
                         <p>Click to Delete Users or Admin by id</p>
                     </a>
+                    
                 </div>
             </div>
            
@@ -331,6 +340,13 @@
                         </div>
                     </div>
                 </a>
+                
+                <form asp-controller="Home" asp-action="Customers" method="post">
+                    
+                    <input type="hidden" id="site-search" name="ProductId" value="1">
+
+                    <button type="submit" style="color:red">Add To Cart</button>
+                </form>
             </div>
             <div class="col col-md-4 col-lg-3 ">
                 <a href="#">
@@ -340,6 +356,9 @@
                             <h5 class="card-title">Mobile</h5>
                         </div>
                     </div>
+                </a>
+                <a style="color:red">
+                    Add To Cart
                 </a>
             </div>
             <div class="col col-md-4 col-lg-3 ">
@@ -351,6 +370,9 @@
                         </div>
                     </div>
                 </a>
+                <a style="color:red">
+                    Add To Cart
+                </a>
             </div>
             <div class="col col-md-4 col-lg-3 ">
                 <a href="#">
@@ -360,6 +382,9 @@
                             <h5 class="card-title">Mobile</h5>
                         </div>
                     </div>
+                </a>
+                <a style="color:red">
+                    Add To Cart
                 </a>
             </div>
             <div class="col col-md-4 col-lg-3 ">
@@ -371,6 +396,9 @@
                         </div>
                     </div>
                 </a>
+                <a style="color:red">
+                    Add To Cart
+                </a>
             </div>
             <div class="col col-md-4 col-lg-3">
                 <a href="#">
@@ -380,6 +408,9 @@
                             <h5 class="card-title">Mobile</h5>
                         </div>
                     </div>
+                </a>
+                <a style="color:red">
+                    Add To Cart
                 </a>
             </div>
             <div class="col col-md-4 col-lg-3">
@@ -391,6 +422,9 @@
                         </div>
                     </div>
                 </a>
+                <a style="color:red">
+                    Add To Cart
+                </a>
             </div>
             <div class="col col-md-4 col-lg-3">
                 <a href="#">
@@ -400,6 +434,9 @@
                             <h5 class="card-title">Mobile</h5>
                         </div>
                     </div>
+                </a>
+                <a style="color:red">
+                    Add To Cart
                 </a>
             </div>
             <div class="col col-md-4 col-lg-3">
@@ -412,6 +449,9 @@
                         </div>
                     </div>
                 </a>
+                <a style="color:red">
+                    Add To Cart
+                </a>
             </div>
             <div class="col col-md-4 col-lg-3">
                 <a href="#">
@@ -421,6 +461,9 @@
                             <h5 class="card-title">Mobile</h5>
                         </div>
                     </div>
+                </a>
+                <a style="color:red">
+                    Add To Cart
                 </a>
             </div>
             <div class="col col-md-4 col-lg-3">
@@ -432,6 +475,9 @@
                         </div>
                     </div>
                 </a>
+                <a style="color:red">
+                    Add To Cart
+                </a>
             </div>
             <div class="col col-md-4 col-lg-3">
                 <a href="#">
@@ -442,6 +488,9 @@
                         </div>
                     </div>
                 </a>
+                <a style="color:red">
+                    Add To Cart
+                </a>
             </div>
             <div class="col col-md-4 col-lg-3">
                 <a href="#">
@@ -451,6 +500,9 @@
                             <h5 class="card-title">Mobile</h5>
                         </div>
                     </div>
+                </a>
+                <a style="color:red">
+                    Add To Cart
                 </a>
             </div>
             <div class="col col-md-4 col-lg-3">
@@ -462,6 +514,9 @@
                         </div>
                     </div>
                 </a>
+                <a style="color:red">
+                    Add To Cart
+                </a>
             </div>
             <div class="col col-md-4 col-lg-3">
                 <a href="#">
@@ -472,6 +527,9 @@
                         </div>
                     </div>
                 </a>
+                <a style="color:red">
+                    Add To Cart
+                </a>
             </div>
             <div class="col col-md-4 col-lg-3">
                 <a href="#">
@@ -481,6 +539,9 @@
                             <h5 class="card-title">Mobile</h5>
                         </div>
                     </div>
+                </a>
+                <a style="color:red">
+                    Add To Cart
                 </a>
             </div>
         </div>
