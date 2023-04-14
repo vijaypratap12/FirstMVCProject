@@ -34,7 +34,7 @@
     .box {
         position: relative;
         width: 300px;
-        height: 400px;
+        height: 200px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -82,7 +82,37 @@
 
         .box:nth-child(4):before,
         .box:nth-child(4):after {
-            background: linear-gradient(235deg, red, #010615, #2196F3);
+            background: linear-gradient(235deg, lightgreen, #010615, darkred);
+        }
+
+        .box:nth-child(5):before,
+        .box:nth-child(5):after {
+            background: linear-gradient(235deg, red, #0E5CAD, #2196F3);
+        }
+
+        .box:nth-child(6):before,
+        .box:nth-child(6):after {
+            background: linear-gradient(235deg, darkgreen, #010615, #FCB69F);
+        }
+
+        .box:nth-child(7):before,
+        .box:nth-child(7):after {
+            background: linear-gradient(235deg, #50A7C2, #f7797d, yellow);
+        }
+
+        .box:nth-child(8):before,
+        .box:nth-child(8):after {
+            background: linear-gradient(235deg, darkgreen, #f7797d, #00E4FF);
+        }
+
+        .box:nth-child(9):before,
+        .box:nth-child(9):after {
+            background: linear-gradient(235deg,#F6416C, #f7797d, yellow);
+        }
+
+        .box:nth-child(10):before,
+        .box:nth-child(10):after {
+            background: linear-gradient(235deg, darkgreen, #f7797d, #000DFF);
         }
 
         .box .glass {
@@ -99,6 +129,10 @@
         .box .content {
             padding: 20px;
             color: #fff;
+        }
+       .box .content a{
+            text-decoration:none;
+            color:whitesmoke;
         }
 </style>
 <div class="container bg-gradient text-center w-100 h-100">
@@ -171,48 +205,117 @@
 <allbuttons>
 <div class="container allbuttons align-items-center" >
     <div class="row buttons">
+        
         <div class="box">
             <div class="glass"></div>
             <div class="content">
-                <h2>Glowing Border</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <a asp-controller="Home" asp-action="AddCustomers">
+                <h2>Add Customers</h2>
+                <p>Click to Add new Customer</p>
+                    </a>
+                    
             </div>
         </div>
+       
+        
         <div class="box">
             <div class="glass"></div>
             <div class="content">
-                <h2>Glowing Border</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <a asp-controller="Home" asp-action="ShowAllCustomers">
+                <h2>Show All Customers</h2>
+                <p>Click to Show all Customers</p>
+                    </a>
             </div>
         </div>
+           
+            
         <div class="box">
             <div class="glass"></div>
             <div class="content">
-                <h2>Glowing Border</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <a asp-controller="Home" asp-action="DeleteCustomerById">
+                <h2>Delete Customer By ID</h2>
+                <p>Click to Delete Customer by id</p>
+                    </a>
+                   
             </div>
         </div>
+            
+            
             <div class="box">
                 <div class="glass"></div>
                 <div class="content">
-                    <h2>Glowing Border</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <a asp-controller="Home" asp-action="NewUserOrAdminAdd">
+                    <h2>Add New User OR Admin</h2>
+                    <p>add new user or admin</p>
+                        </a>
+                    
+                </div>
+            </div>
+            
+            
+            <div class="box">
+                <div class="glass"></div>
+                <div class="content">
+                    <a asp-controller="Home" asp-action="AllUsers">
+                    <h2>Show All User OR Admin</h2>
+                    <p>Show all users or Admin</p>
+                    </a>
+                    
+                </div>
+            </div>
+               
+               
+            <div class="box">
+            <div class="glass"></div>
+            <div class="content">
+                    <a asp-controller="Home" asp-action="UpdateUserOrAdmin">
+                <h2>Update User OR Admin</h2>
+                <p>Update user or admin</p>
+                    </a>
+                   
+            </div>
+            </div>
+            <div class="box">
+                <div class="glass"></div>
+                <div class="content">
+                    <a asp-controller="Home" asp-action="User">
+                        <h2>Search User Or Admin By Id</h2>
+                        <p> click Search users or admin by id</p>
+                    </a>
+                  
                 </div>
             </div>
             <div class="box">
                 <div class="glass"></div>
                 <div class="content">
-                    <h2>Glowing Border</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <a asp-controller="Home" asp-action="Products">
+                        <h2>Search Product By Id</h2>
+                        <p>click to Search Products by id</p>
+                    </a>
+                    
                 </div>
             </div>
             <div class="box">
-            <div class="glass"></div>
-            <div class="content">
-                <h2>Glowing Border</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <div class="glass"></div>
+                <div class="content">
+                    <a asp-controller="Home" asp-action="Customers">
+                        <h2>Search Customers By Id</h2>
+                        <p>click to Search Customers by id</p>
+                    </a>
+                    
+                </div>
             </div>
-        </div>
+            <div class="box">
+                <div class="glass"></div>
+                <div class="content">
+                    <a asp-controller="Home" asp-action="DeleteUserById">
+                        <h2>Delete Users By Id</h2>
+                        <p>Click to Delete Users or Admin by id</p>
+                    </a>
+                    
+                </div>
+            </div>
+           
 
     </div>
 </div>
@@ -237,6 +340,13 @@
                         </div>
                     </div>
                 </a>
+                
+                <form asp-controller="Home" asp-action="Customers" method="post">
+                    
+                    <input type="hidden" id="site-search" name="ProductId" value="1">
+
+                    <button type="submit" style="color:red">Add To Cart</button>
+                </form>
             </div>
             <div class="col col-md-4 col-lg-3 ">
                 <a href="#">
@@ -246,6 +356,9 @@
                             <h5 class="card-title">Mobile</h5>
                         </div>
                     </div>
+                </a>
+                <a style="color:red">
+                    Add To Cart
                 </a>
             </div>
             <div class="col col-md-4 col-lg-3 ">
@@ -257,6 +370,9 @@
                         </div>
                     </div>
                 </a>
+                <a style="color:red">
+                    Add To Cart
+                </a>
             </div>
             <div class="col col-md-4 col-lg-3 ">
                 <a href="#">
@@ -266,6 +382,9 @@
                             <h5 class="card-title">Mobile</h5>
                         </div>
                     </div>
+                </a>
+                <a style="color:red">
+                    Add To Cart
                 </a>
             </div>
             <div class="col col-md-4 col-lg-3 ">
@@ -277,6 +396,9 @@
                         </div>
                     </div>
                 </a>
+                <a style="color:red">
+                    Add To Cart
+                </a>
             </div>
             <div class="col col-md-4 col-lg-3">
                 <a href="#">
@@ -286,6 +408,9 @@
                             <h5 class="card-title">Mobile</h5>
                         </div>
                     </div>
+                </a>
+                <a style="color:red">
+                    Add To Cart
                 </a>
             </div>
             <div class="col col-md-4 col-lg-3">
@@ -297,6 +422,9 @@
                         </div>
                     </div>
                 </a>
+                <a style="color:red">
+                    Add To Cart
+                </a>
             </div>
             <div class="col col-md-4 col-lg-3">
                 <a href="#">
@@ -306,6 +434,9 @@
                             <h5 class="card-title">Mobile</h5>
                         </div>
                     </div>
+                </a>
+                <a style="color:red">
+                    Add To Cart
                 </a>
             </div>
             <div class="col col-md-4 col-lg-3">
@@ -318,6 +449,9 @@
                         </div>
                     </div>
                 </a>
+                <a style="color:red">
+                    Add To Cart
+                </a>
             </div>
             <div class="col col-md-4 col-lg-3">
                 <a href="#">
@@ -327,6 +461,9 @@
                             <h5 class="card-title">Mobile</h5>
                         </div>
                     </div>
+                </a>
+                <a style="color:red">
+                    Add To Cart
                 </a>
             </div>
             <div class="col col-md-4 col-lg-3">
@@ -338,6 +475,9 @@
                         </div>
                     </div>
                 </a>
+                <a style="color:red">
+                    Add To Cart
+                </a>
             </div>
             <div class="col col-md-4 col-lg-3">
                 <a href="#">
@@ -348,6 +488,9 @@
                         </div>
                     </div>
                 </a>
+                <a style="color:red">
+                    Add To Cart
+                </a>
             </div>
             <div class="col col-md-4 col-lg-3">
                 <a href="#">
@@ -357,6 +500,9 @@
                             <h5 class="card-title">Mobile</h5>
                         </div>
                     </div>
+                </a>
+                <a style="color:red">
+                    Add To Cart
                 </a>
             </div>
             <div class="col col-md-4 col-lg-3">
@@ -368,6 +514,9 @@
                         </div>
                     </div>
                 </a>
+                <a style="color:red">
+                    Add To Cart
+                </a>
             </div>
             <div class="col col-md-4 col-lg-3">
                 <a href="#">
@@ -378,6 +527,9 @@
                         </div>
                     </div>
                 </a>
+                <a style="color:red">
+                    Add To Cart
+                </a>
             </div>
             <div class="col col-md-4 col-lg-3">
                 <a href="#">
@@ -387,6 +539,9 @@
                             <h5 class="card-title">Mobile</h5>
                         </div>
                     </div>
+                </a>
+                <a style="color:red">
+                    Add To Cart
                 </a>
             </div>
         </div>

@@ -95,6 +95,19 @@ namespace Mobile_Shop_Management_MVC_Project.Models
         public string? Address { get; set; }
 
     }
+    public class LoginUser { 
+    
+        public int UserId { get; set; }
+        public string? Passwords { get; set;}
+        public string? Email { get; set; }
+    
+    }
+    public class TokenModel
+    {
+        public string token { get; set; }
+        public int UserId { get; set; }
+        public DateTime expiry { get; set; }
+    }
 
 
 }

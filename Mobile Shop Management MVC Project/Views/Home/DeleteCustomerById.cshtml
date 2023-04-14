@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewData["Title"] = "DeleteCustomerById";
+}
+
+<h1>DeleteCustomerById</h1>
+<br />
+<form asp-controller="Home" asp-action="DeleteCustomerById" method="post">
+    <br />
+    <label for="site-search">Get Customer Delete By ID:</label>
+    <br />
+    <input type="search" id="site-search" name="CustomerId">
+
+    <button type="submit">Delete</button>
+</form>
+<br />
+<br />
+
+
+<a href="ShowAllCustomers">Click to show Customer Details after deletion</a>
+
