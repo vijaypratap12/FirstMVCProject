@@ -2,6 +2,10 @@
     ViewData["Title"] = "GetTeacher";
 }
 <style>
+
+    body {
+        background-color:blanchedalmond;
+    }
     table, th, td {
         border: 1px solid purple;
         border-collapse: collapse;
@@ -10,15 +14,12 @@
     th, td {
         background-color: pink;
     }
+
 </style>
 
-<div>
-    <a href="AddTeacher">Add Teacher</a>
-</div>
-<div>
-    <a href="DeleteTeacher">Remove Teacher</a>
-</div>
-<table border="1">
+<body>
+
+<table border="1" align="center" >
     <tr>
         <th>
             TeacherId
@@ -40,3 +41,8 @@
     }
 
 </table>
+<div class="button" align="center">
+    <a href="AddTeacher"><button> AddTeacher</button></a>
+    <a href="DeleteTeacher"><button>RemoveTeacher</button></a>
+</div>
+</body>

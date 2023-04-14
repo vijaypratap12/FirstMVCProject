@@ -37,4 +37,15 @@
         public int? Age { get; set; }
         public string? Department { get; set; }
     }
+    public class loginAdmin
+    {
+        public string email { get; set; }
+        public string password { get; set; }
+    }
+    public class loginresponse
+    {
+        public string token { get; set; }
+        public string expiryDate { get; set; }
+        public string userName { get; set; }
+    }
 }
