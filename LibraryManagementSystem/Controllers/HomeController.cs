@@ -1,5 +1,7 @@
-﻿using LibraryManagementSystem.Models;
+﻿using LibraryManagementSystem.Common;
+using LibraryManagementSystem.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -8,13 +10,12 @@ namespace LibraryManagementSystem.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
         private readonly ILogger<HomeController> _logger;
-
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
-
         public IActionResult Index()
         {
             return View();
@@ -35,11 +36,14 @@ namespace LibraryManagementSystem.Controllers
         [HttpGet]
         public IActionResult Category()
         {
-            HttpClient httpclient = new HttpClient();
+            //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            HttpClient httpClient = new HttpClient();
             IEnumerable<Category> obj = new List<Category>();
-            httpclient.BaseAddress = new Uri("https://localhost:7071");
-            //int categoryId = 1;
-            var response = httpclient.GetAsync($"/api/Library/GetAllCategory");
+            httpClient.BaseAddress = new Uri(config.GetSection("APIBaseURL").Value);
+            var token =  HttpContext.Request.Cookies["token"];
+            AddHeaderToken.AddTokenValue(token, httpClient);
+            var newurl = CommonEntities.GetAllCategory(config.GetSection("APIBaseURL").Value);
+            var response = httpClient.GetAsync(newurl);
             response.Wait();
             var result = response.Result;
             if (result.IsSuccessStatusCode)
@@ -57,11 +61,14 @@ namespace LibraryManagementSystem.Controllers
         [HttpGet]
         public IActionResult Book()
         {
+            //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             HttpClient httpClient = new HttpClient();
             IEnumerable<book> obj = new List<book>();
-            httpClient.BaseAddress = new Uri("https://localhost:7071");
-            //int bookid = 1;
-            var response = httpClient.GetAsync($"/api/Library/GetAllBookDetail");
+            httpClient.BaseAddress = new Uri(config.GetSection("APIBaseURL").Value);
+            var token = HttpContext.Request.Cookies["token"];
+            AddHeaderToken.AddTokenValue(token, httpClient);
+            var newurl = CommonEntities.GetAllBook(config.GetSection("APIBaseURL").Value);
+            var response = httpClient.GetAsync(newurl);
             response.Wait();
             var result = response.Result;
             if (result.IsSuccessStatusCode) 
@@ -79,11 +86,14 @@ namespace LibraryManagementSystem.Controllers
         [HttpGet]
         public IActionResult IssueBook()
         {
+            //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             HttpClient httpClient = new HttpClient();
             IEnumerable<IssueBook> obj = new List<IssueBook>();
-            httpClient.BaseAddress = new Uri("https://localhost:7071");
-            //int bookid = 1;
-            var response = httpClient.GetAsync($"/api/Library/GetissueBookDetail");
+            httpClient.BaseAddress = new Uri(config.GetSection("APIBaseURL").Value);
+            var token = HttpContext.Request.Cookies["token"];
+            AddHeaderToken.AddTokenValue(token, httpClient);
+            var newurl = CommonEntities.GetissueBookDetail(config.GetSection("APIBaseURL").Value);
+            var response = httpClient.GetAsync(newurl);
             response.Wait();
             var result = response.Result;
             if (result.IsSuccessStatusCode)
@@ -102,11 +112,14 @@ namespace LibraryManagementSystem.Controllers
         [HttpGet]
         public IActionResult publisherT()
         {
+            //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             HttpClient httpClient = new HttpClient();
             IEnumerable<publisherT> obj = new List<publisherT>();
-            httpClient.BaseAddress = new Uri("https://localhost:7071");
-            //int bookid = 1;
-            var response = httpClient.GetAsync($"/api/Library/GetAllPublisher");
+            httpClient.BaseAddress = new Uri(config.GetSection("APIBaseURL").Value);
+            var token = HttpContext.Request.Cookies["token"];
+            AddHeaderToken.AddTokenValue(token, httpClient);
+            var newurl = CommonEntities.GetAllPublisher(config.GetSection("APIBaseURL").Value);
+            var response = httpClient.GetAsync(newurl);
             response.Wait();
             var result = response.Result;
             if (result.IsSuccessStatusCode)
@@ -124,11 +137,14 @@ namespace LibraryManagementSystem.Controllers
         [HttpGet]
         public IActionResult Author()
         {
+            //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             HttpClient httpClient = new HttpClient();
             IEnumerable<Author> obj = new List<Author>();
-            httpClient.BaseAddress = new Uri("https://localhost:7071");
-            //int bookid = 1;
-            var response = httpClient.GetAsync($"/api/Library/GetAllAuthor");
+            httpClient.BaseAddress = new Uri(config.GetSection("APIBaseURL").Value);
+            var token =  HttpContext.Request.Cookies["token"];
+            AddHeaderToken.AddTokenValue(token, httpClient);
+            var newurl = CommonEntities.GetAllAuthor(config.GetSection("APIBaseURL").Value);
+            var response = httpClient.GetAsync(newurl);
             response.Wait();
             var result = response.Result;
             if (result.IsSuccessStatusCode)
@@ -146,11 +162,15 @@ namespace LibraryManagementSystem.Controllers
         [HttpGet]
         public IActionResult Member()
         {
+            //token = HttpContext.Request.Cookies.TryGetValue("token", out token).ToString();
+            //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             HttpClient httpClient = new HttpClient();
             IEnumerable<Member> obj = new List<Member>();
-            httpClient.BaseAddress = new Uri("https://localhost:7071");
-            //int bookid = 1;
-            var response = httpClient.GetAsync($"/api/Library/GetAllMemberDetail");
+            httpClient.BaseAddress = new Uri(config.GetSection("APIBaseURL").Value);
+            var token = HttpContext.Request.Cookies["token"];
+            AddHeaderToken.AddTokenValue(token, httpClient);
+            var newurl = CommonEntities.GetAllMember(config.GetSection("APIBaseURL").Value);
+            var response = httpClient.GetAsync(newurl);
             response.Wait();
             var result = response.Result;
             if (result.IsSuccessStatusCode)
@@ -161,7 +181,6 @@ namespace LibraryManagementSystem.Controllers
             }
             return View(obj);
         }
-		
         /// <summary>
         /// Adding books detail on table
         /// </summary>
@@ -170,16 +189,17 @@ namespace LibraryManagementSystem.Controllers
         [HttpPost]
         public async Task<IActionResult> AddBookAsync([FromForm] book objbook)
         {
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("https://localhost:7071");
-            //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            //client.DefaultRequestHeaders.Accept.Clear();
-
-            HttpResponseMessage response = await client.PostAsJsonAsync("/api/Library/AddBook", objbook);
+            //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(config.GetSection("APIBaseURL").Value);
+            var token = Request.Cookies["token"];
+            AddHeaderToken.AddTokenValue(token, httpClient);
+            var newurl = CommonEntities.AddBook(config.GetSection("APIBaseURL").Value);
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync(newurl, objbook);
 
             if (response.IsSuccessStatusCode == true)
             {
-                return View();
+                return RedirectToAction("book");
             }
             return View();
         }
@@ -191,16 +211,17 @@ namespace LibraryManagementSystem.Controllers
         [HttpPost]
         public async Task<IActionResult> AddMemberAsync([FromForm] Member objbook)
         {
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("https://localhost:7071");
-            //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            //client.DefaultRequestHeaders.Accept.Clear();
-
-            HttpResponseMessage response = await client.PostAsJsonAsync("/api/Library/AddMember", objbook);
+            //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(config.GetSection("APIBaseURL").Value);
+            var token = Request.Cookies["token"];
+            AddHeaderToken.AddTokenValue(token, httpClient);
+            var newurl = CommonEntities.AddMember(config.GetSection("APIBaseURL").Value);
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync(newurl, objbook);
 
             if (response.IsSuccessStatusCode == true)
             {
-                return View();
+                return RedirectToAction("Member");
             }
             return View();
         }
@@ -212,16 +233,17 @@ namespace LibraryManagementSystem.Controllers
 		[HttpPost]
 		public async Task<IActionResult> AddCategoryAsync([FromForm] Category objbook)
 		{
-			HttpClient client = new HttpClient();
-			client.BaseAddress = new Uri("https://localhost:7071");
-			//client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-			//client.DefaultRequestHeaders.Accept.Clear();
-
-			HttpResponseMessage response = await client.PostAsJsonAsync("/api/Library/AddCategory", objbook);
+            //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(config.GetSection("APIBaseURL").Value);
+            var token = Request.Cookies["token"];
+            AddHeaderToken.AddTokenValue(token, httpClient);
+            var newurl = CommonEntities.AddCategory(config.GetSection("APIBaseURL").Value);
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync(newurl, objbook);
 
 			if (response.IsSuccessStatusCode == true)
 			{
-				return View();
+				return RedirectToAction("Category");
 			}
 			return View();
 		}
@@ -234,16 +256,17 @@ namespace LibraryManagementSystem.Controllers
 		[HttpPost]
 		public async Task<IActionResult> AddAuthorAsync([FromForm] Author objbook)
 		{
-			HttpClient client = new HttpClient();
-			client.BaseAddress = new Uri("https://localhost:7071");
-			//client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-			//client.DefaultRequestHeaders.Accept.Clear();
-
-			HttpResponseMessage response = await client.PostAsJsonAsync("/api/Library/AddAuthor", objbook);
+            //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(config.GetSection("APIBaseURL").Value);
+            var token = Request.Cookies["token"];
+            AddHeaderToken.AddTokenValue(token, httpClient);
+            var newurl = CommonEntities.AddAuthor(config.GetSection("APIBaseURL").Value);
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync(newurl, objbook);
 
 			if (response.IsSuccessStatusCode == true)
 			{
-				return View();
+				return RedirectToAction("Author");
 			}
 			return View();
 		}
@@ -255,16 +278,17 @@ namespace LibraryManagementSystem.Controllers
 		[HttpPost]
 		public async Task<IActionResult> AddpublisherAsync([FromForm] publisherT objbook)
 		{
-			HttpClient client = new HttpClient();
-			client.BaseAddress = new Uri("https://localhost:7071");
-			//client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-			//client.DefaultRequestHeaders.Accept.Clear();
-
-			HttpResponseMessage response = await client.PostAsJsonAsync("/api/Library/AddPublisher", objbook);
+            //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(config.GetSection("APIBaseURL").Value);
+            var token = Request.Cookies["token"];
+            AddHeaderToken.AddTokenValue(token, httpClient);
+            var newurl = CommonEntities.AddPublisher(config.GetSection("APIBaseURL").Value);
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync(newurl, objbook);
 
 			if (response.IsSuccessStatusCode == true)
 			{
-				return View();
+				return RedirectToAction("publisherT");
 			}
 			return View();
 		}
@@ -276,16 +300,17 @@ namespace LibraryManagementSystem.Controllers
 		[HttpPost]
 		public async Task<IActionResult> AddIssueBookAsync([FromForm] IssueBook objbook)
 		{
-			HttpClient client = new HttpClient();
-			client.BaseAddress = new Uri("https://localhost:7071");
-			//client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-			//client.DefaultRequestHeaders.Accept.Clear();
-
-			HttpResponseMessage response = await client.PostAsJsonAsync("api/Library/Addissuebook", objbook);
+            //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(config.GetSection("APIBaseURL").Value);
+            var token = Request.Cookies["token"];
+            AddHeaderToken.AddTokenValue(token, httpClient);
+            var newurl = CommonEntities.Addissuebook(config.GetSection("APIBaseURL").Value);
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync(newurl, objbook);
 
 			if (response.IsSuccessStatusCode == true)
 			{
-				return View();
+				return RedirectToAction("IssueBook");
 			}
 			return View();
 		}
@@ -296,14 +321,17 @@ namespace LibraryManagementSystem.Controllers
 		[HttpPost]
         public async Task<IActionResult> DeleteMember([FromForm] int Id)
         {
-            HttpClient client = new HttpClient();
-			client.BaseAddress = new Uri("https://localhost:7071");
-
-			HttpResponseMessage response = await client.DeleteAsync($"/api/Library/DeleteMember?Id={Id}");
+            //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(config.GetSection("APIBaseURL").Value);
+            var token = Request.Cookies["token"];
+            AddHeaderToken.AddTokenValue(token, httpClient);
+            var newurl = CommonEntities.DeleteMemberDetail(config.GetSection("APIBaseURL").Value, Id);
+            HttpResponseMessage response = await httpClient.DeleteAsync(newurl);
 
             if(response.IsSuccessStatusCode == true)
             {
-                return View();
+                return RedirectToAction("Member");
             }
             return View();
 
@@ -316,13 +344,16 @@ namespace LibraryManagementSystem.Controllers
 		[HttpPost]
 		public async Task<IActionResult> DeleteCategory([FromForm] int categoryId)
 		{
-			HttpClient client = new HttpClient();
-			client.BaseAddress = new Uri("https://localhost:7071");
-
-			HttpResponseMessage response = await client.DeleteAsync($"/api/Library/DeleteCategory?categoryId={categoryId}");
+            //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(config.GetSection("APIBaseURL").Value);
+            var token = Request.Cookies["token"];
+            AddHeaderToken.AddTokenValue(token, httpClient);
+            var newurl = CommonEntities.DeleteCategoryDetail(config.GetSection("APIBaseURL").Value, categoryId);
+            HttpResponseMessage response = await httpClient.DeleteAsync(newurl);
 			if (response.IsSuccessStatusCode == true)
 			{
-				return View();
+				return RedirectToAction("Category");
 			}
 			return View();
 
@@ -335,14 +366,17 @@ namespace LibraryManagementSystem.Controllers
 		[HttpPost]
 		public async Task<IActionResult> DeleteAuthor([FromForm] int authorId)
 		{
-			HttpClient client = new HttpClient();
-			client.BaseAddress = new Uri("https://localhost:7071");
-
-			HttpResponseMessage response = await client.DeleteAsync($"/api/Library/DeleteAuthor?authorId={authorId}");
+            //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(config.GetSection("APIBaseURL").Value);
+            var token = Request.Cookies["token"];
+            AddHeaderToken.AddTokenValue(token, httpClient);
+            var newurl = CommonEntities.DeleteAuthorDetail(config.GetSection("APIBaseURL").Value, authorId);
+            HttpResponseMessage response = await httpClient.DeleteAsync(newurl);
 
 			if (response.IsSuccessStatusCode == true)
 			{
-				return View();
+				return RedirectToAction("Author");
 			}
 			return View();
 
@@ -355,14 +389,17 @@ namespace LibraryManagementSystem.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Deletepublisher([FromForm] int id)
 		{
-			HttpClient client = new HttpClient();
-			client.BaseAddress = new Uri("https://localhost:7071");
-
-			HttpResponseMessage response = await client.DeleteAsync($"/api/Library/DeletePublisher?id={id}");
+            //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(config.GetSection("APIBaseURL").Value);
+            var token = Request.Cookies["token"];
+            AddHeaderToken.AddTokenValue(token, httpClient);
+            var newurl = CommonEntities.DeletePublisherDetail(config.GetSection("APIBaseURL").Value, id);
+            HttpResponseMessage response = await httpClient.DeleteAsync(newurl);
 
 			if (response.IsSuccessStatusCode == true)
 			{
-				return View();
+				return RedirectToAction("publisherT");
 			}
 			return View();
 
@@ -375,14 +412,17 @@ namespace LibraryManagementSystem.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteBook([FromForm] int bookId)
         {
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("https://localhost:7071");
-
-            HttpResponseMessage response = await client.DeleteAsync($"/api/Library/DeleteBook?bookId={bookId}");
+            //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(config.GetSection("APIBaseURL").Value);
+            var token = Request.Cookies["token"];
+            AddHeaderToken.AddTokenValue(token, httpClient);
+            var newurl = CommonEntities.DeleteBookDetail(config.GetSection("APIBaseURL").Value, bookId);
+            HttpResponseMessage response = await httpClient.DeleteAsync(newurl);
 
             if (response.IsSuccessStatusCode == true)
             {
-                return View();
+                return RedirectToAction("Book");
             }
             return View();
 
@@ -395,19 +435,53 @@ namespace LibraryManagementSystem.Controllers
 		[HttpPost]
 		public async Task<IActionResult> DeleteIssueBook([FromForm] int Id)
 		{
-			HttpClient client = new HttpClient();
-			client.BaseAddress = new Uri("https://localhost:7071");
-
-			HttpResponseMessage response = await client.DeleteAsync($"/api/Library/DeleteIssueBook?Id={Id}");
+            //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(config.GetSection("APIBaseURL").Value);
+            var token = Request.Cookies["token"];
+            AddHeaderToken.AddTokenValue(token, httpClient);
+            var newurl = CommonEntities.DeleteIssueBookDetail(config.GetSection("APIBaseURL").Value,Id);
+            HttpResponseMessage response = await httpClient.DeleteAsync(newurl);
 
 			if (response.IsSuccessStatusCode == true)
 			{
-				return View();
+				return RedirectToAction("IssueBook");
 			}
 			return View();
 
 		}
-		public IActionResult DeleteBook()
+        public IActionResult loginAdmin()
+        { 
+            return View(); 
+        }
+        /// <summary>
+        /// login detail
+        /// </summary>
+        /// <param name="admin"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> loginAdmin([FromForm] loginAdmin admin)
+        {
+            loginResponse loginresponse = new loginResponse();
+            HttpClient httpClient = new HttpClient();
+
+            httpClient.BaseAddress = new Uri(config.GetSection("APIBaseURL").Value);
+            var newurl = CommonEntities.LoginUrl("");
+            var response = httpClient.PostAsJsonAsync(newurl, admin).Result;
+            loginresponse =  response.Content.ReadAsAsync<loginResponse>().Result;
+            if (response.IsSuccessStatusCode == true)
+            {
+                var token = loginresponse.token.ToString();
+                HttpContext.Response.Cookies.Append("token", token,
+                new Microsoft.AspNetCore.Http.CookieOptions { Expires = DateTime.Now.AddMinutes(20) });
+                return RedirectToAction("Member");
+            }
+                
+            else
+                return View();
+        }
+
+            public IActionResult DeleteBook()
         {
             return View();
         }

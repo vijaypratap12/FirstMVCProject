@@ -1,0 +1,51 @@
+﻿
+
+@{
+    ViewData["Title"] = "loginAdmin";
+}
+@*<style>
+     body
+     {
+        background-color: blanchedalmond;
+     }
+</style>
+<form method="post" asp-controller="Home" asp-action="loginAdmin">
+    <fieldset>        
+        <legend>LogIN</legend>        
+        <div>            
+            <label for="AdminId">Id:</label>            
+            <input type="number" name="adminId" value="" />            
+            @Html.ValidationMessage("AdminId")       
+        </div>        
+        <div>            
+            <label for="password">Password:</label>            
+            <input type="password" name="password" value="" />            
+            @Html.ValidationMessage("password")        
+        </div>        
+        <label>&nbsp;</label>    
+        <input type="submit" value="Submit" class="submit" />           
+    </fieldset>
+    
+</form> *@ 
+
+<form method="post" asp-controller="Home" asp-action="loginAdmin">
+    <!-- Email input -->
+    <div class="form-outline mb-4">
+        <label class="form-label" for="form2Example1">Email address</label>
+        <input type="email" name="email" id="form2Example1" class="form-control" />
+        @Html.ValidationMessage("email")
+    </div>
+
+    <!-- Password input -->
+    <div class="form-outline mb-4">
+        <label class="form-label" for="form2Example2">Password</label>
+        <input type="password" name="adminPassword" id="form2Example2" class="form-control" />
+        @Html.ValidationMessage("adminPassword")
+    </div>
+
+
+    <!-- Submit button -->
+    <button type="submit" class="btn btn-primary btn-block mb-4">LogIn</button> 
+   
+
+</form>
