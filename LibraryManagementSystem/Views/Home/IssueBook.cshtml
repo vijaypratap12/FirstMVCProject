@@ -1,6 +1,8 @@
-﻿@model List<LibraryManagementSystem.Models.IssueBook>
+﻿@*@model LibraryManagementSystem.Models.book*@
+@model List<LibraryManagementSystem.Models.IssueBook>
 @{
 }
+
 <style>
     h1 {
         font-size: 30px;
@@ -68,10 +70,65 @@
     ::-webkit-scrollbar-thumb {
         -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     }
+    }
+   label{
+       display:block;
+       font-size: 1rem;
+   }
+   input, label{
+       margin: 0.4rem 0;
+   }
 </style>
-<div style="text-align: center">
+<div style="text-align: center; color:white;">
     <h1> Details of Issue Books </h1>
+
+
+<form asp-action="IssueBook" method="post">
+    <label for="site-search">Get Book Detail By ID</label>
+    <input type="search" id="site-search" name="BookId" />
+    <button type="submit" class="btn-success">Search</button>
+</form>
+
 </div>
+
+@*@if(Model == null)
+{
+    <h1>Not Data Found</h1>
+}
+else
+{
+    <section>
+        <div class="tbl-header">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <thead>
+                    <tr>
+                        <th>BookId</th>
+                        <th>BookName</th>
+                        <th>Edition</th>
+                        <th>CategoryId</th>
+                        <th>AuthorId</th>
+                        <th>PublisherId</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="tbl-content">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tbody>
+                        <tr>
+                            <td>@Model.bookId</td>
+                            <td>@Model.bookName</td>
+                            <td>@Model.edition</td>
+                            <td>@Model.categoryId</td>
+                            <td>@Model.authorId</td>
+                            <td>@Model.publisherId</td>
+                        </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    
+}*@
 
 <section>
     <!--for demo wrap-->
