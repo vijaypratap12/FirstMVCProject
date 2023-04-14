@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using commonentities;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using SchoolManagementSystemMVC.Models;
 using System.Diagnostics;
+using System.Net.Http;
 using System.Net.Http.Headers;
 
 namespace SchoolManagementSystemMVC.Controllers
@@ -13,13 +16,18 @@ namespace SchoolManagementSystemMVC.Controllers
         {
             _logger = logger;
         }
+        private readonly IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+
         [HttpGet]
         public IActionResult GetStudent()
         {
             HttpClient httpClient = new HttpClient();
             List<SchoolModel> students = new List<SchoolModel>();
-            httpClient.BaseAddress = new Uri("https://localhost:7177");
-            var response = httpClient.GetAsync($"/api/School/GetAllStudent");
+            httpClient.BaseAddress = new Uri(config.GetSection("APIBaseUrl").Value);
+            var tokenget = Request.Cookies["token"];
+            AddHeaderToken.AddTokenValue(tokenget, httpClient);
+            var newurl = CommonEntities.GetStudent(config.GetSection("APIBaseUrl").Value);
+            var response = httpClient.GetAsync(newurl);
             response.Wait();
             var result = response.Result;
             if (result.IsSuccessStatusCode)
@@ -35,8 +43,11 @@ namespace SchoolManagementSystemMVC.Controllers
         {
             HttpClient httpClient = new HttpClient();
             List<TeacherModel> teachers = new List<TeacherModel>();
-            httpClient.BaseAddress = new Uri("https://localhost:7177");
-            var response = httpClient.GetAsync($"/api/School/GetAllTeacher");
+            httpClient.BaseAddress = new Uri(config.GetSection("APIBaseUrl").Value);
+            var tokenget = Request.Cookies["token"];
+            AddHeaderToken.AddTokenValue(tokenget, httpClient);
+           var newurl= CommonEntities.GetTeacher(config.GetSection("APIBaseUrl").Value);
+            var response = httpClient.GetAsync(newurl);
             response.Wait();
             var result = response.Result;
             if (result.IsSuccessStatusCode)
@@ -52,8 +63,11 @@ namespace SchoolManagementSystemMVC.Controllers
         {
             HttpClient httpClient = new HttpClient();
             List<CourseModel> teachers = new List<CourseModel>();
-            httpClient.BaseAddress = new Uri("https://localhost:7177");
-            var response = httpClient.GetAsync($"/api/School/GetAllCourse");
+            httpClient.BaseAddress = new Uri(config.GetSection("APIBaseUrl").Value);
+            var tokenget = Request.Cookies["token"];
+            AddHeaderToken.AddTokenValue(tokenget, httpClient);
+            var newurl = CommonEntities.GetCourse(config.GetSection("APIBaseUrl").Value);
+            var response = httpClient.GetAsync(newurl);
             response.Wait();
             var result = response.Result;
             if (result.IsSuccessStatusCode)
@@ -73,15 +87,17 @@ namespace SchoolManagementSystemMVC.Controllers
         public async Task<IActionResult> AddStudentAsync([FromForm] AddStudentModel student)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("https://localhost:7177");
-
+            client.BaseAddress = new Uri(config.GetSection("APIBaseUrl").Value);
+            var tokenget = Request.Cookies["token"];
+            AddHeaderToken.AddTokenValue(tokenget, client);
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Accept.Clear();
 
-            HttpResponseMessage response = await client.PostAsJsonAsync("api/School/AddNewStudent", student);
+            var newurl = CommonEntities.AddNewStudent(config.GetSection("APIBaseUrl").Value);
+            HttpResponseMessage response = await client.PostAsJsonAsync(newurl,student);
 
             if (response.IsSuccessStatusCode == true)
-                return View();
+               return RedirectToAction("GetStudent");
             else
                 return View();
         }
@@ -93,14 +109,17 @@ namespace SchoolManagementSystemMVC.Controllers
         public async Task<IActionResult> DeleteStudent([FromForm] int StudentId)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("https://localhost:7177");
-
+            client.BaseAddress = new Uri(config.GetSection("APIBaseUrl").Value);
+            var tokenget = Request.Cookies["token"];
+            AddHeaderToken.AddTokenValue(tokenget, client);
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Accept.Clear();
-            HttpResponseMessage response = await client.DeleteAsync($"api/School/DeleteNewStudent?StudentId={StudentId}");
+
+            var newurl = CommonEntities.DeleteNewStudent(StudentId);
+            HttpResponseMessage response = await client.DeleteAsync(newurl);
 
             if (response.IsSuccessStatusCode == true)
-                return View(response);
+                return RedirectToAction("GetStudent"); 
             else
                 return View();
         }
@@ -111,15 +130,20 @@ namespace SchoolManagementSystemMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteTeacher([FromForm] int TeacherId)
         {
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("https://localhost:7177");
 
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri(config.GetSection("APIBaseUrl").Value);
+            var tokenget = Request.Cookies["token"];
+            AddHeaderToken.AddTokenValue(tokenget, client);
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Accept.Clear();
-            HttpResponseMessage response = await client.DeleteAsync($"api/School/DeleteTeacher?TeacherId={TeacherId}");
+
+            var newurl = CommonEntities.DeleteTeacher(TeacherId);
+            HttpResponseMessage response = await client.DeleteAsync(newurl);
+
 
             if (response.IsSuccessStatusCode == true)
-                return View(response);
+                return RedirectToAction("GetTeacher"); 
             else
                 return View();
         }
@@ -131,15 +155,17 @@ namespace SchoolManagementSystemMVC.Controllers
         public async Task<IActionResult> AddTeacherAsync([FromForm] AddTeacherModel teacher)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("https://localhost:7177");
-
+            client.BaseAddress = new Uri(config.GetSection("APIBaseUrl").Value);
+            var tokenget = Request.Cookies["token"];
+            AddHeaderToken.AddTokenValue(tokenget, client);
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Accept.Clear();
 
-            HttpResponseMessage response = await client.PostAsJsonAsync("api/School/AddNewTeacher", teacher);
+            var newurl = CommonEntities.AddNewTeacher(config.GetSection("APIBaseUrl").Value);
+            HttpResponseMessage response = await client.PostAsJsonAsync(newurl, teacher);
 
             if (response.IsSuccessStatusCode == true)
-                return View();
+                return RedirectToAction("GetTeacher");
             else
                 return View();
         }
@@ -151,19 +177,46 @@ namespace SchoolManagementSystemMVC.Controllers
         public async Task<IActionResult> AddCourseAsync([FromForm] AddCourseModel course)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("https://localhost:7177");
-
+            client.BaseAddress = new Uri(config.GetSection("APIBaseUrl").Value);
+            var tokenget = Request.Cookies["token"];
+            AddHeaderToken.AddTokenValue(tokenget, client);
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Accept.Clear();
 
-            HttpResponseMessage response = await client.PostAsJsonAsync("api/School/AddNewCourse", course);
-
+            var newurl = CommonEntities.AddNewCourse(config.GetSection("APIBaseUrl").Value);
+            HttpResponseMessage response = await client.PostAsJsonAsync(newurl, course);
             if (response.IsSuccessStatusCode == true)
-                return View();
+                return RedirectToAction("GetCourse"); 
             else
                 return View();
         }
-        public IActionResult Index()
+        public IActionResult login()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> loginAsync([FromForm] loginAdmin admin)
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("https://localhost:7177");
+            loginresponse loginresponse = new loginresponse();
+
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Accept.Clear();
+            var newurl= CommonEntities.LoginUrl("");
+            //HttpResponseMessage response = await client.PostAsJsonAsync("api/School/loginAdmin",admin);
+            var response = client.PostAsJsonAsync(newurl, admin).Result;
+            loginresponse = response.Content.ReadAsAsync<loginresponse>().Result;
+            if (response.IsSuccessStatusCode == true)
+            {
+                var token = loginresponse.token.ToString();
+                HttpContext.Response.Cookies.Append("token", token,
+               new Microsoft.AspNetCore.Http.CookieOptions { Expires = DateTime.Now.AddMinutes(15) });
+                return RedirectToAction("GetStudent");
+            }
+            else
+                return View();
+        }        public IActionResult Index()
         {
             return View();
         }
