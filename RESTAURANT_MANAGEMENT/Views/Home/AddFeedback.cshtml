@@ -2,45 +2,44 @@
 
 @{
     <style>
-        div {
+         div {
             width: fit-content;
-            background-color: lightgreen;
-        }
+            background-color: lightblue;
+         }
+         
     </style>
-    <h4 style="text-align:center">Feedback</h4>
+    <h4 style="text-align:center">FEEDBACK</h4>
 
     <div class="row">
         <div class="col md-9">
             <form asp-controller="Home" asp-action="AddFeedback" method="post">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-                <div class="form-group">
-                    <label asp-for="CustomerId" class="control-label"></label>
-                    <input asp-for="CustomerId" class="form-control" />
-                    <span asp-validation-for="CustomerId" class="text-danger"></span>
+               <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+              
+                <div class="form-group ">
+                    <label asp-for="CustomerId" class="control-label">ID</label>
+                    <input asp-for="CustomerId" class="form-control Submit " />
+                    <span asp-validation-for="CustomerId" class="text-danger "></span>
                 </div>
-
+                <br>
                 <div class="form-group">
-                    <label asp-for="FoodName" class="control-label"></label>
+                    <label asp-for="FoodName" class="control-label">NAME</label>
                     <input asp-for="FoodName" class="form-control" />
                     <span asp-validation-for="FoodName" class="text-danger"></span>
                 </div>
-
+                <br>
                 <div class="form-group">
-                    <label asp-for="Messages" class="control-label"></label>
+                    <label asp-for="Messages" class="control-label">FEEDBACK</label>
                     <input asp-for="Messages" class="form-control" />
                     <span asp-validation-for="Messages" class="text-danger"></span>
                 </div>
-
+                  
                 <br>
-                <div class="form-group">
-                    <input type="submit" value="submit" class="btn btn-primary" />
-                </div>
+                <button class="btn btn-success" type="submit"> submit </button>
             </form>
         </div>
     </div>
     <div>
-        <a asp-action="FeedbackList">ALL LIST</a>
+        <a asp-action="FeedbackList">LIST</a>
     </div>
 
 }

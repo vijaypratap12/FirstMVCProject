@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿//using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RESTAURANT_MANAGEMENT.Models;
+using System.Configuration;
 using System.Diagnostics;
-using System.Net.Http.Headers;
+using RESTAURANT_MANAGEMENT.CommonEntities;
+using System.Reflection.PortableExecutable;
 
 namespace RESTAURANT_MANAGEMENT.Controllers
 {
@@ -12,7 +15,7 @@ namespace RESTAURANT_MANAGEMENT.Controllers
         {
             _logger = logger;
         }
-
+        private readonly IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
         public IActionResult Index()
         {
             return View();
@@ -24,10 +27,12 @@ namespace RESTAURANT_MANAGEMENT.Controllers
         public IActionResult AllCustomer()
         {
             HttpClient httpClient = new HttpClient();
-            IEnumerable<AllCustomerDetails> allCustomerDetails = new List<AllCustomerDetails>();
-            httpClient.BaseAddress = new Uri("https://localhost:7177/");
-
-            var response = httpClient.GetAsync($"/api/Restaurant/AllCustomerDetails");
+            IEnumerable<AllCustomerDetails> allCustomerDetails = new List<AllCustomerDetails>();                       
+            httpClient.BaseAddress = new Uri(config.GetSection("ApiBaseUrl").Value);
+            var token = HttpContext.Request.Cookies["token"];
+            AddHeaderToken.HeaderToken(token, httpClient);
+            var newUrl = CommmonEntities.AllCustomerUrl(config.GetSection("ApiBaseUrl").Value);
+            var response = httpClient.GetAsync(newUrl);
             response.Wait();
             var result = response.Result;
             if (result.IsSuccessStatusCode)
@@ -41,7 +46,7 @@ namespace RESTAURANT_MANAGEMENT.Controllers
 
 
 
-        //in the first this add will render 
+        //in the first this add will be render 
         public IActionResult AddCustomer()
         {
             return View();
@@ -50,51 +55,57 @@ namespace RESTAURANT_MANAGEMENT.Controllers
         [HttpPost]
         public async Task<IActionResult> AddCustomer([FromForm] AddCustomer customer)
         {
-            HttpClient Client = new HttpClient();
-            Client.BaseAddress = new Uri("https://localhost:7177/");
-            
-                //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                //client.DefaultRequestHeaders.Accept.Clear();
-
-            HttpResponseMessage response = await Client.PostAsJsonAsync($"/api/Restaurant/AddCustomer", customer);
+            HttpClient httpClient = new HttpClient();                       
+            httpClient.BaseAddress = new Uri(config.GetSection("ApiBaseUrl").Value);
+            var token = Request.Cookies["token"];
+            AddHeaderToken.HeaderToken(token, httpClient);
+            var newUrl = CommmonEntities.AddCustomerUrl(config.GetSection("ApiBaseUrl").Value);
+            //var response = httpClient.GetAsync(newUrl);
+            //response.Wait();
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync(newUrl, customer);
             if (response.IsSuccessStatusCode == true)
             {
                 return RedirectToAction("AllCustomer");
             }
              return View();
-        }       
+        }
         public IActionResult DeleteCustomer()
-            //delete customer
+        //delete customer
         {
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> DeleteCustomer([FromForm]int CustomerId)
+        public async Task<IActionResult> DeleteCustomer([FromForm] int CustomerId)
         {
-            HttpClient Client = new HttpClient();
-            Client.BaseAddress = new Uri("https://localhost:7177/");
-
-            //Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            //Client.DefaultRequestHeaders.Accept.Clear();
-            HttpResponseMessage response = await Client.DeleteAsync($"api/Restaurant/DeleteCustomer?CustomerId={CustomerId}");
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(config.GetSection("ApiBaseUrl").Value);
+            var token = Request.Cookies["token"];
+            AddHeaderToken.HeaderToken(token, httpClient);
+            var newUrl = CommmonEntities.DeleteCustomerUrl(config.GetSection("ApiBaseUrl").Value, CustomerId);
+          
+            HttpResponseMessage response = await httpClient.DeleteAsync(newUrl);
+            
             if (response.IsSuccessStatusCode == true)
             {
-                  return RedirectToAction("AllCustomer");
-                //return RedirectToAction("DeleteCustomer");
+                return RedirectToAction("AllCustomer");  
             }
             return View();
         }
-       
+
+
 
         // staff list
         [HttpGet]
         public IActionResult AllStaffList()
         {
-            HttpClient httpClient = new HttpClient();
+            HttpClient httpClient = new HttpClient();           
             IEnumerable<AllStaffList> allStaffList = new List<AllStaffList>();
-            httpClient.BaseAddress = new Uri("https://localhost:7177/");
 
-            var response = httpClient.GetAsync($"/api/Restaurant/AllStaffList");
+            httpClient.BaseAddress = new Uri(config.GetSection("ApiBaseUrl").Value);
+            var token = HttpContext.Request.Cookies["token"];
+            AddHeaderToken.HeaderToken(token, httpClient);
+            var newurl = CommmonEntities.AllStaffUrl(config.GetSection("ApiBaseUrl").Value);
+            var response = httpClient.GetAsync(newurl);
             response.Wait();
             var result = response.Result;
             if (result.IsSuccessStatusCode)
@@ -105,6 +116,7 @@ namespace RESTAURANT_MANAGEMENT.Controllers
             }
             return View(allStaffList);
         }
+
         // show staff form 
         [HttpGet]
         public IActionResult AddStaff()
@@ -115,39 +127,42 @@ namespace RESTAURANT_MANAGEMENT.Controllers
         [HttpPost]
         public async Task<IActionResult> AddStaff([FromForm] AddStaff addStaff)
         {
-            HttpClient Client = new HttpClient();
-            Client.BaseAddress = new Uri("https://localhost:7177/");
-
-           
-            HttpResponseMessage response = await Client.PostAsJsonAsync($"/api/Restaurant/AddStaff", addStaff);
+            HttpClient httpClient = new HttpClient();            
+            httpClient.BaseAddress = new Uri(config.GetSection("ApiBaseUrl").Value);
+            var token = Request.Cookies["token"];
+            AddHeaderToken.HeaderToken(token, httpClient);
+            var newUrl = CommmonEntities.AddStaffUrl(config.GetSection("ApiBaseUrl").Value);            
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync(newUrl, addStaff);
+            
             if (response.IsSuccessStatusCode == true)
             {
                 return RedirectToAction("AllStaffList");
             }
             return View();
         }
-
         public IActionResult DeleteStaff()
-        //delete customer
+        
         {
             return View();
         }
         [HttpPost]
+        
         public async Task<IActionResult> DeleteStaff([FromForm] int StaffId)
         {
-            HttpClient Client = new HttpClient();
-            Client.BaseAddress = new Uri("https://localhost:7177/");
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(config.GetSection("ApiBaseUrl").Value);
+            var token = Request.Cookies["token"];
+            AddHeaderToken.HeaderToken(token, httpClient);
 
-            //Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            //Client.DefaultRequestHeaders.Accept.Clear();
-            HttpResponseMessage response = await Client.DeleteAsync($"/api/Restaurant/DeleteStaff?StaffId={StaffId}");
+            var newUrl = CommmonEntities.DeleteStaffUrl(config.GetSection("ApiBaseUrl").Value, StaffId);
+            HttpResponseMessage response = await httpClient.DeleteAsync(newUrl);            
             if (response.IsSuccessStatusCode == true)
             {
-                return RedirectToAction("AllStaffList");
-                //return RedirectToAction("DeleteCustomer");
+                return RedirectToAction("AllStaffList");                
             }
             return View();
         }
+
 
 
         [HttpGet]
@@ -155,8 +170,11 @@ namespace RESTAURANT_MANAGEMENT.Controllers
         {
             HttpClient httpClient = new HttpClient();
             IEnumerable<FoodList> foodlist = new List<FoodList>();
-            httpClient.BaseAddress = new Uri("https://localhost:7177/");
-            var response = httpClient.GetAsync($"/api/Restaurant/AllFoodList");
+            httpClient.BaseAddress = new Uri(config.GetSection("ApiBaseUrl").Value);
+            var token = HttpContext.Request.Cookies["token"];
+            AddHeaderToken.HeaderToken(token, httpClient);
+            var newUrl = CommmonEntities.AllFoodUrl(config.GetSection("ApiBaseUrl").Value);
+            var response = httpClient.GetAsync(newUrl);            
             response.Wait();
             var result = response.Result;
             if (result.IsSuccessStatusCode)
@@ -178,14 +196,15 @@ namespace RESTAURANT_MANAGEMENT.Controllers
         [HttpPost]
         public async Task<IActionResult> AddFeedback([FromForm] AddFeedback feedback)
         {
-            HttpClient Client = new HttpClient();
-            Client.BaseAddress = new Uri("https://localhost:7177/");
-
-            HttpResponseMessage response = await Client.PostAsJsonAsync($"/api/Restaurant/AddingFeedback", feedback);
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(config.GetSection("ApiBaseUrl").Value);
+            var token = Request.Cookies["token"];
+            AddHeaderToken.HeaderToken(token, httpClient);
+            var newUrl = CommmonEntities.AddFeedbackUrl(config.GetSection("ApiBaseUrl").Value);
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync($"/api/Restaurant/AddingFeedback", feedback);
             if (response.IsSuccessStatusCode == true)
             {
-                return View();
-
+                return RedirectToAction("FeedbackList");
             }
             return View();
         }
@@ -196,8 +215,11 @@ namespace RESTAURANT_MANAGEMENT.Controllers
         {
             HttpClient httpClient = new HttpClient();
             IEnumerable<FeedbackList> feedbacklist = new List<FeedbackList>();
-            httpClient.BaseAddress = new Uri("https://localhost:7177/");
-            var response = httpClient.GetAsync($"/api/Restaurant/GetFeedbackList");
+            httpClient.BaseAddress = new Uri(config.GetSection("ApiBaseUrl").Value);
+            var token = HttpContext.Request.Cookies["token"];
+            AddHeaderToken.HeaderToken(token, httpClient);
+            var newUrl = CommmonEntities.AllFeedbackUrl(config.GetSection("ApiBaseUrl").Value);
+            var response = httpClient.GetAsync(newUrl);
             response.Wait();
             var result = response.Result;
             if (result.IsSuccessStatusCode)
@@ -209,8 +231,39 @@ namespace RESTAURANT_MANAGEMENT.Controllers
             return View(feedbacklist);
         }
 
+        public IActionResult LoginCustomer()
+        { 
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> loginCustomerAsync([FromForm] LoginCustomer admin)
+        {
+            TokenResponse tokenResponse = new TokenResponse();
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(config.GetSection("ApiBaseUrl").Value);
+            var newUrl = CommmonEntities.LoginCustomerUrl("");
+           
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync(newUrl, admin);
+            
+            tokenResponse = response.Content.ReadAsAsync<TokenResponse>().Result;
+            if (response.IsSuccessStatusCode == true)
+            {
+                var token = tokenResponse.token.ToString();
+                HttpContext.Response.Cookies.Append("token", token,
+                new Microsoft.AspNetCore.Http.CookieOptions
+                {
+                    Expires = DateTime.Now.AddMinutes(20)
+                });
+                return RedirectToAction("LoginSuccess");
+            }
+            else
+                return View();
+        }
        
-
+        public IActionResult LoginSuccess()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();
@@ -222,11 +275,11 @@ namespace RESTAURANT_MANAGEMENT.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel 
+            { 
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier 
+            });
         }
-
-
-
 
     }
 

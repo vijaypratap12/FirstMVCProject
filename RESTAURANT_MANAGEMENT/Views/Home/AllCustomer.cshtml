@@ -1,10 +1,9 @@
-﻿  
-
-@{    
-    <h2 style="text-align:center; color:maroon">Customers</h2>
+﻿@{    
+    <h2 style="text-align:center; color:lightcoral">CUSTOMERS</h2>
     <style>
         table, th, td {
             border: 1px solid black;
+           
             border-collapse: collapse;
             text-align: center;
         }
@@ -12,9 +11,7 @@
         th, td {
             background-color: lightgoldenrodyellow;
         }
-    </style>
-    
-    
+    </style>    
     <table border="1" width="100%">
        
         <tr>
@@ -33,18 +30,14 @@
             <td>@item.CustomerAddress</td>
             
         </tr>
-        }       
-      
+        }             
     </table>
-
-    <div>
-        <a style="font-family:'Times New Roman', Times, serif; font-size:larger; text-align:left " asp-action="AddCustomer">New registration</a>
-       
-        <a style="font-family:'Times New Roman', Times, serif; font-size:larger; text-align:right " asp-action="DeleteCustomer">Deleting Customer</a>
-    </div>
-
-    
+    <br>
+    <a asp-action="AddCustomer" style="text-decoration:none"> <button> New Register </button> </a>
+   
+    <a asp-action="DeleteCustomer" style="text-decoration:none"> <button> DELETE </button> </a>             
 
 }
 
 
+  

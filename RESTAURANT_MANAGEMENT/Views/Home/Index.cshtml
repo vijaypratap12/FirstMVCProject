@@ -1,8 +1,16 @@
-﻿@{
+﻿
+@{
     ViewData["Title"] = "Home Page";
 }
+<style>
+    a{
+         text-align:center;
+         color: black;
+         font-size:larger;
+    }
+</style>
 
-
+    <a asp-action="LoginCustomer"> SIGN IN</a>
 <div class="slider">
     <div id="carouselExampleIndicators" class="carousel slide">
         <div class="carousel-indicators">
@@ -39,19 +47,19 @@
         </button>
     </div>
 </div>
-
-<h1 style="text-align: center">Welcome to our Restaurant- TASTE OF INDIA</h1>
-
- <div class=" container">
-  <div class="row">
-    <div class="col-sm-3 col-md-5 col-lg-4">
-        <img src="/indian_food_1.png" class="d-block " alt="Food Image">
-    </div>
-    <div class="col-sm-3 col-md-5 col-lg-4">
+<h1 style="text-align: center">Welcome To Our Restaurant- TASTE OF INDIA</h1>
+<div class=" container">
+    <div class="row">
+        <div class="col-sm-3 col-md-5 col-lg-4">
+            <img src="/indian_food_1.png" class="d-block " alt="Food Image">
+        </div>
+        <div class="col-sm-3 col-md-5 col-lg-4">
             <img src="/indian_food_2.png" class="d-block " alt="Food Image">
+        </div>
+        <div class="col-sm-3 col-md-5 col-lg-4">
+            <img src="/indian_food_3.png" class="d-block " alt="Food Image">
+        </div>
     </div>
-    <div class="col-sm-3 col-md-5 col-lg-4">
-        <img src="/indian_food_3.png" class="d-block " alt="Food Image">
-    </div>
-  </div>
- </div>
+</div>
+
+  

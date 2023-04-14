@@ -63,8 +63,19 @@
         public int CustomerId { get; set; }
         public string? FoodName { get; set;}
         public string? Messages { get;set; }
-
     }
-    
+    public class LoginCustomer
+    {
+        public int CustomerId{ get; set; }
+        public string CustomerName { get; set;}        
+    }
+
+    public class TokenResponse
+    {
+        public string token { get; set; }
+        public string expires { get; set; }
+        public string CustomerId { get; set; }
+        public string CustomerName { get; set; }
+    }
 
 }

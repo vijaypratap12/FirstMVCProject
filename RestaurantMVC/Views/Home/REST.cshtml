@@ -1,0 +1,28 @@
+﻿@model RestaurantMVC.Models.RestaurantModel
+@{
+}
+<style>
+    table, th, td {
+        border: 1px solid white;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        background-color: #96D4D4;
+    }
+</style>
+<table border="1">
+    <tr>
+        <th>
+            StaffId
+        </th> &nbsp;
+        <th>StaffName</th>
+        
+    </tr>
+    <tr>
+        <td>@Model.StaffId</td>
+        <td>@Model.StaffName</td>
+        
+
+    </tr>
+</table>

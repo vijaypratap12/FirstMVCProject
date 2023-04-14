@@ -7,7 +7,7 @@
             background-color: lightgray;
         }
     </style>
-      <h4 style="text-align:center">Registration  </h4>
+      <h4 style="text-align:center">REGISTRATION</h4>
     
      <div class="row">   
            <div class="col md-9">
@@ -16,32 +16,28 @@
 
                     <div class="form-group">
                         <label asp-for="CustomerName" class="control-label"></label>
-                        <input asp-for="CustomerName" class="form-control" />
+                        <input asp-for="CustomerName" class="form-control " />
                         <span asp-validation-for="CustomerName" class="text-danger"></span>
                     </div>
-
+                    <br>
                     <div class="form-group">
                         <label asp-for="CustomerContact" class="control-label"></label>
                         <input asp-for="CustomerContact" class="form-control" />
                         <span asp-validation-for="CustomerContact" class="text-danger"></span>
                     </div>
-
+                     <br>
                     <div class="form-group">
                         <label asp-for="CustomerAddress" class="control-label"></label>
                         <input asp-for="CustomerAddress" class="form-control" />
                         <span asp-validation-for="CustomerAddress" class="text-danger"></span>
                     </div>
-
-                   
                     <br>
-                    <div class="form-group">
-                        <input type="submit" value="submit" class="btn btn-primary" />
-                    </div>
+                  <button type="submit" class="btn btn-success"> Submit </button>
+                    <br>             
                 </form>
+            <a asp-action="AllCustomer" style="text-decoration:none"> Back to List </a>
            </div>
      </div>
-    <div>
-        <a asp-action="AllCustomer">Back to List</a>
-    </div>
+    
 
    }

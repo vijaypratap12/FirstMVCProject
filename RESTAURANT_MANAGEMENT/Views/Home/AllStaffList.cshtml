@@ -9,6 +9,11 @@
 
         th, td {
             background-color: aquamarine;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            
+        }
+        td{
+            color: mediumblue;
         }
     </style>
     
@@ -37,10 +42,9 @@
 
     </table>
     <br>
-    <div>
-        <a style="font-family:'Times New Roman', Times, serif; font-size:larger: text-align:right" asp-action="AddStaff">New Staff</a>
-        <a style="font-family:'Times New Roman', Times, serif; font-size:larger; text-align:left" asp-action="DeleteStaff">Delete Staff</a>
-    </div>
+    <a asp-action="AddStaff" style="text-decoration:none"> <button> REGISTRATION </button> </a>
+    <a asp-action="DeleteStaff" style="text-decoration:none"> <button> DELETE</button></a>
+         
     
 }
 
